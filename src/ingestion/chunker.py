@@ -224,6 +224,69 @@ def split_large_section(
     return chunks or [section_text]
 
 
+def extract_keywords(text: str, max_keywords: int = 5) -> List[str]:
+    """
+    Extract important legal keywords from text.
+
+    Args:
+        text: Legal text to analyze.
+        max_keywords: Maximum number of keywords to return.
+
+    Returns:
+        List of keywords in order of importance.
+    """
+    if not text:
+        return []
+
+    # Common legal terms to prioritize
+    legal_terms = [
+        "contract", "agreement", "obligation", "liability", "breach",
+        "damages", "consideration", "offer", "acceptance", "party",
+        "court", "jurisdiction", "offense", "penalty", "fine",
+        "property", "land", "title", "ownership", "lease",
+        "criminal", "prosecution", "evidence", "witness", "trial"
+    ]
+
+    # Find legal terms present in text (case-insensitive)
+    text_lower = text.lower()
+    found_terms = []
+
+    for term in legal_terms:
+        if term in text_lower:
+            found_terms.append(term)
+
+    return found_terms[:max_keywords]
+
+
+def extract_cross_references(text: str) -> List[str]:
+    """
+    Extract references to other Acts or sections.
+
+    Args:
+        text: Legal text to analyze.
+
+    Returns:
+        List of cross-reference strings.
+    """
+    if not text:
+        return []
+
+    references = []
+
+    # Pattern: "Section X", "Act Y", "Section X of Act Y"
+    patterns = [
+        r"Section\s+(\d+[A-Za-z]*)",
+        r"Act\s+(\d+[A-Za-z]*)",
+    ]
+
+    for pattern in patterns:
+        matches = re.findall(pattern, text, re.IGNORECASE)
+        references.extend(matches)
+
+    # Deduplicate and return
+    return list(set(references))[:10]  # Max 10 references
+
+
 def chunk_document(
     document: Dict[str, Any],
     max_tokens: int = 1000,
@@ -231,21 +294,28 @@ def chunk_document(
 ) -> List[LegalChunk]:
     """
     Chunk a processed legal document into semantic chunks.
-    
+
     Args:
         document: A processed document dict with keys:
-            - metadata: dict with act_name, act_number, etc.
+            - metadata: dict with act_name, act_number, act_year, etc.
             - cleaned_text: str
         max_tokens: Maximum tokens per chunk.
         min_tokens: Minimum tokens per chunk (smaller chunks merged).
-    
+
     Returns:
-        List of LegalChunk objects.
+        List of LegalChunk objects with enhanced metadata.
     """
     text = document.get("cleaned_text", "")
     metadata = document.get("metadata", {})
     act_name = metadata.get("act_name", "Unknown Act")
     act_number = metadata.get("act_number", 0)
+    act_year = metadata.get("act_year", 0)
+    category = metadata.get("category", "other")
+
+    # Import get_act_category if not provided
+    if category == "other":
+        from config import get_act_category
+        category = get_act_category(act_number)
     
     chunks: List[LegalChunk] = []
     sections = find_sections(text)
@@ -257,17 +327,17 @@ def chunk_document(
             chunk_id=f"act_{act_number}_full",
             act_name=act_name,
             act_number=act_number,
-            act_year=0,                # NEW
-            category="other",          # NEW
+            act_year=act_year,
+            category=category,
             part=None,
             section_number=None,
             section_title=None,
-            subsection=None,           # NEW
+            subsection=None,
             content=text,
             token_count=count_tokens(text),
             start_position=0,
-            cross_references=[],       # NEW
-            keywords=[]                # NEW
+            cross_references=[],
+            keywords=extract_keywords(text)
         )
         return [chunk]
     
@@ -279,17 +349,17 @@ def chunk_document(
                 chunk_id=f"act_{act_number}_preamble",
                 act_name=act_name,
                 act_number=act_number,
-                act_year=0,                # NEW
-                category="other",          # NEW
+                act_year=act_year,
+                category=category,
                 part=find_current_part(text, 0),
                 section_number="Preamble",
                 section_title="Preliminary Provisions",
-                subsection=None,           # NEW
+                subsection=None,
                 content=preamble,
                 token_count=count_tokens(preamble),
                 start_position=0,
-                cross_references=[],       # NEW
-                keywords=[]                # NEW
+                cross_references=[],
+                keywords=extract_keywords(preamble)
             )
             chunks.append(chunk)
     
@@ -344,17 +414,17 @@ def chunk_document(
                 chunk_id=chunk_id,
                 act_name=act_name,
                 act_number=act_number,
-                act_year=0,                # NEW
-                category="other",          # NEW
+                act_year=act_year,
+                category=category,
                 part=current_part,
                 section_number=section["section_number"],
                 section_title=section["title"],
-                subsection=None,           # NEW
+                subsection=None,
                 content=chunk_text,
                 token_count=count_tokens(chunk_text),
                 start_position=section["start"],
-                cross_references=[],       # NEW
-                keywords=[]                # NEW
+                cross_references=extract_cross_references(chunk_text),
+                keywords=extract_keywords(chunk_text)
             )
             chunks.append(chunk)
     
