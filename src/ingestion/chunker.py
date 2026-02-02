@@ -257,12 +257,17 @@ def chunk_document(
             chunk_id=f"act_{act_number}_full",
             act_name=act_name,
             act_number=act_number,
+            act_year=0,                # NEW
+            category="other",          # NEW
             part=None,
             section_number=None,
             section_title=None,
+            subsection=None,           # NEW
             content=text,
             token_count=count_tokens(text),
-            start_position=0
+            start_position=0,
+            cross_references=[],       # NEW
+            keywords=[]                # NEW
         )
         return [chunk]
     
@@ -274,12 +279,17 @@ def chunk_document(
                 chunk_id=f"act_{act_number}_preamble",
                 act_name=act_name,
                 act_number=act_number,
+                act_year=0,                # NEW
+                category="other",          # NEW
                 part=find_current_part(text, 0),
                 section_number="Preamble",
                 section_title="Preliminary Provisions",
+                subsection=None,           # NEW
                 content=preamble,
                 token_count=count_tokens(preamble),
-                start_position=0
+                start_position=0,
+                cross_references=[],       # NEW
+                keywords=[]                # NEW
             )
             chunks.append(chunk)
     
@@ -301,12 +311,17 @@ def chunk_document(
                     chunk_id=prev.chunk_id,
                     act_name=prev.act_name,
                     act_number=prev.act_number,
+                    act_year=prev.act_year,                # NEW
+                    category=prev.category,                # NEW
                     part=prev.part,
                     section_number=prev.section_number,
                     section_title=prev.section_title,
+                    subsection=prev.subsection,            # NEW
                     content=prev.content + "\n\n" + chunk_text,
                     token_count=count_tokens(prev.content + "\n\n" + chunk_text),
-                    start_position=prev.start_position
+                    start_position=prev.start_position,
+                    cross_references=prev.cross_references, # NEW
+                    keywords=prev.keywords                  # NEW
                 )
                 continue
             
@@ -329,12 +344,17 @@ def chunk_document(
                 chunk_id=chunk_id,
                 act_name=act_name,
                 act_number=act_number,
+                act_year=0,                # NEW
+                category="other",          # NEW
                 part=current_part,
                 section_number=section["section_number"],
                 section_title=section["title"],
+                subsection=None,           # NEW
                 content=chunk_text,
                 token_count=count_tokens(chunk_text),
-                start_position=section["start"]
+                start_position=section["start"],
+                cross_references=[],       # NEW
+                keywords=[]                # NEW
             )
             chunks.append(chunk)
     
