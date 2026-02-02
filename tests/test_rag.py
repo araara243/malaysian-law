@@ -40,15 +40,43 @@ class TestAGCScraper:
         assert "Akta%20136.pdf" in url
         assert "LOM/BM" in url
     
-    def test_mvp_acts_defined(self):
-        """Test that MVP acts are properly defined."""
-        from ingestion.agc_scraper import MVP_ACTS
-        
-        assert len(MVP_ACTS) >= 3
-        act_numbers = [act["act_no"] for act in MVP_ACTS]
-        assert 136 in act_numbers  # Contracts Act
-        assert 137 in act_numbers  # Specific Relief Act
-        assert 118 in act_numbers  # Housing Development Act
+    def test_expanded_acts_defined(self):
+        """Test that expanded acts are properly defined."""
+        from ingestion.agc_scraper import EXPANDED_ACTS
+
+        # Should have at least 10 Acts
+        assert len(EXPANDED_ACTS) >= 10
+
+        # Extract act numbers
+        act_numbers = [act["act_no"] for act in EXPANDED_ACTS]
+
+        # Verify existing MVP Acts
+        assert 136 in act_numbers  # Contracts Act 1950
+        assert 137 in act_numbers  # Specific Relief Act 1951
+        assert 118 in act_numbers  # Housing Development (Control and Licensing) Act 1966
+
+        # Verify new Commercial Acts
+        assert 383 in act_numbers  # Sale of Goods Act 1957
+        assert 135 in act_numbers  # Partnership Act 1961
+
+        # Verify new Criminal Acts
+        assert 574 in act_numbers  # Penal Code
+        assert 593 in act_numbers  # Criminal Procedure Code
+
+        # Verify new Property Acts
+        assert 56 in act_numbers   # National Land Code 1965
+        assert 318 in act_numbers  # Strata Titles Act 1985
+
+        # Verify new Civil Procedure Acts
+        assert 91 in act_numbers   # Courts of Judicature Act 1964
+
+        # Verify all acts have required fields
+        for act in EXPANDED_ACTS:
+            assert "act_no" in act
+            assert "name" in act
+            assert isinstance(act["act_no"], int)
+            assert isinstance(act["name"], str)
+            assert len(act["name"]) > 0
 
 
 class TestTextExtractor:

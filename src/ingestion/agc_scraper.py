@@ -69,6 +69,21 @@ HEADERS = {
 }
 
 
+def sanitize_filename(name: str) -> str:
+    """
+    Sanitize a string for use as a filename.
+
+    Removes characters that are invalid in filenames on most operating systems.
+
+    Args:
+        name: The string to sanitize.
+
+    Returns:
+        A sanitized string safe for use in filenames.
+    """
+    return re.sub(r'[<>:"/\\|?*]', '', name)
+
+
 def get_project_root() -> Path:
     """Get the project root directory."""
     return Path(__file__).resolve().parent.parent.parent
@@ -181,7 +196,7 @@ def get_download_status(acts: list) -> dict:
         act_name = act["name"]
 
         # Clean filename
-        safe_name = re.sub(r'[<>:"/\\|?*]', '', act_name)
+        safe_name = sanitize_filename(act_name)
         filename = f"Act_{act_no}_{safe_name}_EN.pdf"
         file_path = output_dir / filename
 
@@ -289,9 +304,9 @@ def download_act(act_no: int, act_name: str, language: str = "EN") -> bool:
         True if download was successful, False otherwise.
     """
     output_dir = get_raw_data_dir()
-    
+
     # Clean filename
-    safe_name = re.sub(r'[<>:"/\\|?*]', '', act_name)
+    safe_name = sanitize_filename(act_name)
     filename = f"Act_{act_no}_{safe_name}_{language}.pdf"
     output_path = output_dir / filename
     
@@ -372,7 +387,7 @@ def download_expanded_acts() -> dict:
 
         # Validate the download
         if en_success:
-            safe_name = re.sub(r'[<>:"/\\|?*]', '', act_name)
+            safe_name = sanitize_filename(act_name)
             filename = f"Act_{act_no}_{safe_name}_EN.pdf"
             file_path = get_raw_data_dir() / filename
             is_valid = validate_pdf_download(file_path)
@@ -384,7 +399,7 @@ def download_expanded_acts() -> dict:
         results[f"Act_{act_no}_EN"] = en_success
 
         # Small delay between requests to be polite
-        if download_queue.index((i, act)) < len(download_queue) - 1:
+        if i < len(download_queue) - 1:
             time.sleep(1)
 
     # Detailed Summary
@@ -410,7 +425,7 @@ def download_expanded_acts() -> dict:
         logger.info(f"  [{i+1:2d}] Act {act_no:3d} - {act_name}: {status_text}")
 
         # Show file size if exists
-        safe_name = re.sub(r'[<>:"/\\|?*]', '', act_name)
+        safe_name = sanitize_filename(act_name)
         filename = f"Act_{act_no}_{safe_name}_EN.pdf"
         file_path = get_raw_data_dir() / filename
         if file_path.exists():
