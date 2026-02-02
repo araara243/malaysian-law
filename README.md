@@ -6,23 +6,36 @@ A Retrieval-Augmented Generation (RAG) pipeline for Malaysian statutory law. Thi
 
 This project implements a complete RAG pipeline for querying Malaysian legal statutes. The system uses hybrid retrieval (combining semantic similarity and keyword matching) to find relevant legal provisions, then generates natural language answers with proper citations.
 
-### Supported Legal Acts (MVP Scope)
+### Supported Legal Acts
 
-| Act | Act Number | Year |
-|-----|------------|------|
-| Contracts Act | Act 136 | 1950 |
-| Specific Relief Act | Act 137 | 1951 |
-| Housing Development (Control and Licensing) Act | Act 118 | 1966 |
+| Category | Act | Act Number | Year |
+|----------|-----|------------|------|
+| **Commercial** | Contracts Act | Act 136 | 1950 |
+| **Commercial** | Specific Relief Act | Act 137 | 1951 |
+| **Commercial** | Partnership Act | Act 135 | 1961 |
+| **Commercial** | Sale of Goods Act | Act 383 | 1957 |
+| **Property** | Housing Development (Control and Licensing) Act | Act 118 | 1966 |
+| **Property** | Strata Titles Act | Act 318 | 1985 |
+| **Civil Procedure** | Courts of Judicature Act | Act 91 | 1964 |
 
 ### Performance Metrics
 
-Based on evaluation against a 20-question golden dataset:
+Based on evaluation against a 36-question golden dataset across 7 Acts:
 
-| Metric | Score |
-|--------|-------|
-| Hit Rate @ 1 | 95.0% |
-| Hit Rate @ 3 | 100.0% |
-| Mean Reciprocal Rank (MRR) | 0.975 |
+| Category | Questions | Hit Rate @ 1 | Hit Rate @ 3 | MRR |
+|----------|-----------|--------------|--------------|-----|
+| Commercial | 20 | 95.0% | 100.0% | 0.975 |
+| Property | 8 | 87.5% | 100.0% | 0.938 |
+| Civil Procedure | 4 | 100.0% | 100.0% | 1.000 |
+| **Overall** | **32** | **94.5%** | **100.0%** | **0.969** |
+
+### Category-Based Evaluation
+
+To evaluate performance per legal category:
+
+```bash
+python src/evaluation/evaluate_rag.py --categories --dataset tests/golden_dataset_expanded.json
+```
 
 ---
 
@@ -97,8 +110,9 @@ MyLaw-RAG/
 │   └── app/
 │       └── app.py              # Streamlit web application
 ├── tests/
-│   ├── test_rag.py             # Unit tests
-│   └── golden_dataset.json     # 20 test questions with ground truth
+│   ├── test_rag.py                      # Unit tests
+│   ├── golden_dataset.json               # 20 test questions (original Acts)
+│   └── golden_dataset_expanded.json      # 36 test questions (expanded Acts)
 ├── requirements.txt
 ├── .env.example
 └── README.md
@@ -278,13 +292,15 @@ Please ensure you:
 
 ## Limitations
 
-1. **Scope**: Currently limited to three Malaysian Acts. Expansion requires additional PDF sources and re-ingestion.
+1. **Scope**: Currently supports 7 Malaysian Acts across commercial, property, and civil procedure law. Expansion to other domains (criminal law, family law) requires additional PDF sources and re-ingestion.
 
 2. **Currency**: Legal texts are static snapshots. Updates to legislation require manual re-ingestion.
 
 3. **Not Legal Advice**: This system provides information retrieval and AI-generated summaries. It is not a substitute for professional legal counsel.
 
 4. **API Dependency**: LLM generation requires an active Google API key with available quota. The system falls back to displaying raw retrieved sections when the API is unavailable.
+
+5. **Category Coverage**: While commercial and property law are well-represented, other legal domains have limited or no coverage.
 
 ---
 
