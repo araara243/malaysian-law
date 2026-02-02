@@ -38,8 +38,7 @@ def detect_pdf_type(pdf_path: Path) -> str:
         "text" if text-based, "scanned" if image-based, "unknown" if error.
     """
     try:
-        import pypdf
-        reader = pypdf.PdfReader(pdf_path)
+        reader = PdfReader(pdf_path)
 
         # Check first few pages for extractable text
         text_pages = 0
@@ -116,6 +115,11 @@ def extract_text_from_pdf(pdf_path: Path) -> str:
 
     Returns:
         Extracted text as a string.
+
+    Note:
+        Validation results are logged but do not block processing.
+        Poor-quality extractions are flagged for manual review rather than rejected,
+        allowing the pipeline to proceed while surfacing quality issues.
     """
     logger.info(f"Extracting text from: {pdf_path.name}")
 
