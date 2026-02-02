@@ -39,6 +39,31 @@ class RAGConfig:
     temperature: float = 0.1
 
 
+# Act categories for domain-specific filtering
+ACT_CATEGORIES = {
+    "commercial": [135, 136, 137, 383],
+    "criminal": [574, 593],
+    "property": [56, 118, 318],
+    "civil_procedure": [91],
+}
+
+
+def get_act_category(act_number: int) -> str:
+    """
+    Get category for an Act number.
+
+    Args:
+        act_number: The Act number (e.g., 136 for Contracts Act).
+
+    Returns:
+        Category string (e.g., "commercial") or "other" if not found.
+    """
+    for category, acts in ACT_CATEGORIES.items():
+        if act_number in acts:
+            return category
+    return "other"
+
+
 def get_project_root() -> Path:
     """Get the project root directory."""
     return Path(__file__).resolve().parent.parent
