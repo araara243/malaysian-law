@@ -27,6 +27,69 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+def detect_pdf_type(pdf_path: Path) -> str:
+    """
+    Detect if PDF is text-based or scanned/image-based.
+
+    Args:
+        pdf_path: Path to PDF file.
+
+    Returns:
+        "text" if text-based, "scanned" if image-based, "unknown" if error.
+    """
+    try:
+        import pypdf
+        reader = pypdf.PdfReader(pdf_path)
+
+        # Check first few pages for extractable text
+        text_pages = 0
+        check_pages = min(3, len(reader.pages))
+
+        for i in range(check_pages):
+            page = reader.pages[i]
+            if page.extract_text().strip():
+                text_pages += 1
+
+        # If most pages have text, it's text-based
+        if text_pages >= check_pages * 0.5:
+            return "text"
+        else:
+            return "scanned"
+
+    except Exception as e:
+        logger.warning(f"Error detecting PDF type: {e}")
+        return "unknown"
+
+
+def validate_extraction(extracted_text: str) -> dict:
+    """
+    Validate quality of text extraction.
+
+    Args:
+        extracted_text: The extracted text content.
+
+    Returns:
+        Dict with 'valid' (bool), 'issues' (list), 'length' (int).
+    """
+    result = {
+        "valid": True,
+        "issues": [],
+        "length": len(extracted_text)
+    }
+
+    # Check minimum length
+    if len(extracted_text) < 1000:
+        result["valid"] = False
+        result["issues"].append(f"Text too short: {len(extracted_text)} chars")
+
+    # Check for sections
+    has_sections = bool(re.search(r"Section\s+\d+", extracted_text, re.IGNORECASE))
+    if not has_sections:
+        result["issues"].append("No sections detected - may be scanned or have unusual format")
+
+    return result
+
+
 def get_project_root() -> Path:
     """Get the project root directory."""
     return Path(__file__).resolve().parent.parent.parent
@@ -47,27 +110,42 @@ def get_processed_data_dir() -> Path:
 def extract_text_from_pdf(pdf_path: Path) -> str:
     """
     Extract text from a PDF file using pypdf.
-    
+
     Args:
         pdf_path: Path to the PDF file.
-    
+
     Returns:
         Extracted text as a string.
     """
     logger.info(f"Extracting text from: {pdf_path.name}")
-    
+
+    # Detect PDF type
+    pdf_type = detect_pdf_type(pdf_path)
+    logger.info(f"PDF type detected: {pdf_type}")
+
     try:
         reader = PdfReader(pdf_path)
         text_parts = []
-        
+
         for page_num, page in enumerate(reader.pages, start=1):
             page_text = page.extract_text() or ""
             text_parts.append(page_text)
-        
+
         full_text = "\n".join(text_parts)
         logger.info(f"Extracted {len(full_text)} characters from {len(reader.pages)} pages")
+
+        # Validate extraction quality
+        validation = validate_extraction(full_text)
+        logger.info(f"Extraction validation: valid={validation['valid']}, "
+                   f"length={validation['length']}, "
+                   f"issues={len(validation['issues'])}")
+
+        if validation["issues"]:
+            for issue in validation["issues"]:
+                logger.warning(f"Quality issue detected: {issue}")
+
         return full_text
-    
+
     except Exception as e:
         logger.error(f"Error extracting text from {pdf_path}: {e}")
         return ""
