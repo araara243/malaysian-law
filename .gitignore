@@ -38,3 +38,6 @@ wheels/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Git Worktrees
+.worktrees/
