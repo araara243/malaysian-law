@@ -56,16 +56,21 @@ def count_tokens(text: str) -> int:
 
 @dataclass
 class LegalChunk:
-    """A chunk of legal text with metadata."""
+    """A chunk of legal text with enhanced metadata."""
     chunk_id: str
     act_name: str
     act_number: int
+    act_year: int                    # NEW: Year of enactment
+    category: str                    # NEW: Legal domain category
     part: Optional[str]
     section_number: Optional[str]
     section_title: Optional[str]
+    subsection: Optional[str]        # NEW: Subsection if present
     content: str
     token_count: int
-    start_position: int  # Character position in original text
+    start_position: int
+    cross_references: List[str]      # NEW: References to other Acts
+    keywords: List[str]              # NEW: Extracted legal terms
 
 
 # Regex patterns for Malaysian legal document structure
