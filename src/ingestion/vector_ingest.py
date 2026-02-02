@@ -129,9 +129,12 @@ def ingest_chunks_to_chroma(
             metadatas.append({
                 "act_name": chunk["act_name"],
                 "act_number": chunk["act_number"],
+                "act_year": chunk.get("act_year", 0),
+                "category": chunk.get("category", "other"),
                 "part": chunk.get("part") or "",
                 "section_number": chunk.get("section_number") or "",
                 "section_title": chunk.get("section_title") or "",
+                "subsection": chunk.get("subsection") or "",
                 # Ensure values are strings or numbers, no Nones
                 "token_count": chunk["token_count"],
             })
