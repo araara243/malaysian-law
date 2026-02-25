@@ -7,7 +7,7 @@ and logging setup to ensure consistency across the application.
 
 import logging
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
@@ -39,29 +39,25 @@ class RAGConfig:
     temperature: float = 0.1
 
 
-# Act categories for domain-specific filtering
-ACT_CATEGORIES = {
-    "commercial": [135, 136, 137, 383],
-    "criminal": [574, 593],
-    "property": [56, 118, 318],
-    "civil_procedure": [91],
-}
+@dataclass
+class PostgreSQLConfig:
+    """PostgreSQL database connection settings."""
 
+    # Connection
+    host: str = field(default_factory=lambda: os.getenv("PGHOST", "localhost"))
+    port: int = field(default_factory=lambda: int(os.getenv("PGPORT", "5432")))
+    database: str = field(default_factory=lambda: os.getenv("PGDATABASE", "mylaw_rag"))
+    user: str = field(default_factory=lambda: os.getenv("PGUSER", "postgres"))
+    password: str = field(default_factory=lambda: os.getenv("PGPASSWORD", ""))
 
-def get_act_category(act_number: int) -> str:
-    """
-    Get category for an Act number.
+    # Pool settings
+    min_connections: int = 1
+    max_connections: int = 5
 
-    Args:
-        act_number: The Act number (e.g., 136 for Contracts Act).
-
-    Returns:
-        Category string (e.g., "commercial") or "other" if not found.
-    """
-    for category, acts in ACT_CATEGORIES.items():
-        if act_number in acts:
-            return category
-    return "other"
+    # Vector search
+    embedding_model: str = "all-MiniLM-L6-v2"
+    embedding_dimension: int = 384  # all-MiniLM-L6-v2
+    vector_type: str = "vector_cosine_ops"  # pgvector operator
 
 
 def get_project_root() -> Path:
@@ -82,6 +78,10 @@ def get_processed_dir() -> Path:
 def get_vector_db_dir() -> Path:
     """Get the vector database directory."""
     return get_data_dir() / "vector_db"
+
+
+# PostgreSQL Configuration
+postgresql_config: PostgreSQLConfig = PostgreSQLConfig()
 
 
 def setup_logging(name: str) -> logging.Logger:

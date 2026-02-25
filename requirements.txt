@@ -12,3 +12,5 @@ requests
 beautifulsoup4
 tiktoken
 rank-bm25
+psycopg2-binary>=2.9.0
+sentence-transformers>=2.2.0

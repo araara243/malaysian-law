@@ -39,6 +39,83 @@ python src/evaluation/evaluate_rag.py --categories --dataset tests/golden_datase
 
 ---
 
+## PostgreSQL Migration (Optional)
+
+The system now supports PostgreSQL with pgvector as an alternative to ChromaDB for vector storage. This provides:
+
+- **Production-ready database** with ACID guarantees
+- **Normalized schema** for better data management
+- **Scalability** for larger datasets
+- **Concurrent access** with connection pooling
+- **SQL interface** for custom queries
+
+### Quick Start with PostgreSQL
+
+1. **Install PostgreSQL and pgvector**
+   ```bash
+   # Ubuntu/Debian
+   sudo apt install postgresql postgresql-contrib libpq-dev
+
+   # macOS
+   brew install postgresql@16
+
+   # pgvector extension (see docs/POSTGRESQL_SETUP.md)
+   ```
+
+2. **Set up environment variables** in `.env`:
+   ```
+   PGHOST=localhost
+   PGPORT=5432
+   PGDATABASE=mylaw_rag
+   PGUSER=mylaw_user
+   PGPASSWORD=your_password
+   ```
+
+3. **Initialize the database schema**:
+   ```bash
+   psql -U mylaw_user -d mylaw_rag -f scripts/migrate/init_postgres_schema.sql
+   ```
+
+4. **Migrate existing data** (if using ChromaDB):
+   ```bash
+   # Export from ChromaDB
+   python scripts/migrate/export_from_chroma.py chromadb_export.json
+
+   # Import to PostgreSQL
+   python scripts/migrate/import_to_postgres.py chromadb_export.json
+
+   # Validate migration
+   python scripts/migrate/validate_migration.py chromadb_export.json
+   ```
+
+5. **Use PostgreSQLRetriever** in your code:
+   ```python
+   from src.retrieval.postgresql_retriever import PostgreSQLRetriever
+   from src.config import postgresql_config
+
+   retriever = PostgreSQLRetriever(postgresql_config)
+   results = retriever.retrieve("What is consideration?", n_results=5)
+   ```
+
+### Architecture Comparison
+
+**ChromaDB (Default):**
+- Simple setup, no external dependencies
+- Local file-based storage
+- Best for development and small datasets
+
+**PostgreSQL + pgvector:**
+- Requires database setup
+- Client-server architecture
+- Best for production and larger datasets
+- SQL query capabilities
+
+### Migration Documentation
+
+For complete setup instructions, troubleshooting, and performance optimization, see [docs/POSTGRESQL_SETUP.md](docs/POSTGRESQL_SETUP.md).
+
+---
+
 ## Architecture
 
 ### System Components
@@ -77,11 +154,12 @@ graph TD
 | Language | Python 3.12+ |
 | LLM Framework | LangChain |
 | LLM Provider | Google Gemini 2.0 Flash Lite |
-| Vector Database | ChromaDB (local persistence) |
-| Embedding Model | sentence-transformers/all-MiniLM-L6-v2 |
+| Vector Database | ChromaDB (local persistence) **or PostgreSQL + pgvector** |
+| Embedding Model | sentence-transformers/all-MiniLM-L6-v2 (384 dims) |
 | Keyword Search | BM25 (rank_bm25) |
 | Web Interface | Streamlit |
 | PDF Processing | pypdf |
+| Database Adapter | psycopg2 (PostgreSQL) |
 
 ---
 
@@ -95,13 +173,16 @@ MyLaw-RAG/
 │   └── vector_db/              # ChromaDB persistence directory
 ├── src/
 │   ├── config.py               # Centralized configuration
+│   ├── db/                     # Database layer (PostgreSQL)
+│   │   └── postgres_connection.py  # Connection pooling
 │   ├── ingestion/
 │   │   ├── agc_scraper.py      # Downloads PDFs from AGC website
 │   │   ├── text_extractor.py   # PDF to text extraction with cleaning
 │   │   ├── chunker.py          # Semantic chunking by legal sections
 │   │   └── vector_ingest.py    # ChromaDB ingestion
 │   ├── retrieval/
-│   │   └── hybrid_retriever.py # BM25 + semantic search with RRF fusion
+│   │   ├── hybrid_retriever.py # BM25 + semantic search with RRF fusion
+│   │   └── postgresql_retriever.py  # PostgreSQL + pgvector retriever
 │   ├── generation/
 │   │   ├── prompts.py          # System prompts and templates
 │   │   └── rag_chain.py        # LangChain RAG pipeline
@@ -109,10 +190,18 @@ MyLaw-RAG/
 │   │   └── evaluate_rag.py     # Retrieval evaluation metrics
 │   └── app/
 │       └── app.py              # Streamlit web application
+├── scripts/
+│   └── migrate/                # PostgreSQL migration scripts
+│       ├── init_postgres_schema.sql  # Database schema
+│       ├── export_from_chroma.py     # ChromaDB export
+│       ├── import_to_postgres.py     # PostgreSQL import
+│       └── validate_migration.py     # Migration validation
 ├── tests/
-│   ├── test_rag.py                      # Unit tests
-│   ├── golden_dataset.json               # 20 test questions (original Acts)
-│   └── golden_dataset_expanded.json      # 36 test questions (expanded Acts)
+│   ├── test_rag.py             # Unit tests
+│   ├── test_postgres_*.py      # PostgreSQL tests
+│   └── golden_dataset.json     # 20 test questions with ground truth
+├── docs/
+│   └── POSTGRESQL_SETUP.md     # PostgreSQL setup guide
 ├── requirements.txt
 ├── .env.example
 └── README.md
