@@ -81,10 +81,11 @@ st.markdown("""
 def load_rag_chain():
     """Load and cache the RAG chain."""
     return LegalRAGChain(
-        model_name="gemini-2.0-flash-lite",
+        model_name="openrouter/free",  # Auto-routes to best available free model
         temperature=0.1,
         n_results=5,
-        retrieval_method="hybrid"
+        retrieval_method="hybrid",
+        llm_provider="openrouter"
     )
 
 
@@ -97,27 +98,57 @@ def render_sidebar():
         
         st.markdown("""
         ### 📚 Available Acts
-        - **Contracts Act 1950** (Act 136)
-        - **Specific Relief Act 1951** (Act 137)
-        - **Housing Development Act 1966** (Act 118)
+        **Commercial Law:**
+        - Contracts Act 1950 (Act 136)
+        - Specific Relief Act 1951 (Act 137)
+        - Partnership Act 1961 (Act 135)
+        - Sale of Goods Act 1957 (Act 383)
+
+        **Property Law:**
+        - Housing Development (Control and Licensing) Act 1966 (Act 118)
+        - Strata Titles Act 1985 (Act 318)
+
+        **Civil Procedure:**
+        - Courts of Judicature Act 1964 (Act 91)
         """)
         
         st.markdown("---")
         
         st.markdown("""
         ### 💡 Example Questions
-        - What is 'consideration' in contract law?
-        - When can specific performance be granted?
-        - What are the license requirements for housing developers?
-        - What makes a contract void due to coercion?
+
+        **Contract Law:**
+        - What is the definition of consideration in contract law?
+        - When is a contract voidable due to coercion?
+        - What constitutes free consent in contracts?
+        - What is fraud under the Contracts Act?
+
+        **Property Law:**
+        - What are the licensing requirements for housing developers?
+        - What is a Housing Development Account?
+        - What powers does the Controller have over developers?
+
+        **General:**
+        - When can specific performance be ordered by a court?
+        - What remedies are available for breach of contract?
         """)
         
         st.markdown("---")
-        
+
         # Settings
         st.markdown("### ⚙️ Settings")
         show_sources = st.checkbox("Show source sections", value=True)
-        
+        show_stats = st.checkbox("Enable response logging", value=False,
+                                        help="Log responses for model comparison and statistics")
+
+        st.markdown("""
+        ### 🤖 AI Model
+        **Provider:** OpenRouter (Free Tier)
+        **Model:** Auto-routing to best free model
+
+        Get your free API key at [openrouter.ai](https://openrouter.ai/keys)
+        """)
+
         st.markdown("---")
         
         st.markdown("""
@@ -166,11 +197,24 @@ def render_sources(sources: list):
 def main():
     """Main application."""
     # Render sidebar
-    show_sources = render_sidebar()
-    
+    show_sources, show_stats = render_sidebar()
+
     # Main content
     st.markdown('<p class="main-header">⚖️ Malaysian Legal Assistant</p>', unsafe_allow_html=True)
     st.markdown('<p class="sub-header">Ask questions about Malaysian Contracts, Specific Relief, and Housing Development law</p>', unsafe_allow_html=True)
+
+    # Model info (transparency)
+    from generation.rag_chain import LegalRAGChain
+    model_info = LegalRAGChain.get_model_info()
+
+    # Display model info
+    st.caption(
+        f"🤖 AI Provider: {model_info['provider'].upper()} | "
+        f"Model: {model_info['model']} | "
+        f"Temp: {model_info['temperature']} | "
+        f"{model_info['description']}"
+    )
+    st.markdown("---")
     
     # Initialize session state for chat history
     if "messages" not in st.session_state:
@@ -211,7 +255,7 @@ def main():
             with st.chat_message("assistant"):
                 with st.spinner("Researching Malaysian law..."):
                     try:
-                        result = rag_chain.ask(prompt, return_sources=True)
+                        result = rag_chain.ask(prompt, return_sources=True, log_response=show_stats)
                         answer = result["answer"]
                         sources = result.get("sources", [])
                         

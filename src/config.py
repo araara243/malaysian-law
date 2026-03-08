@@ -19,24 +19,26 @@ load_dotenv()
 @dataclass
 class RAGConfig:
     """Configuration settings for the RAG pipeline."""
-    
+
     # Retrieval Settings
     chunk_size: int = 1000
     chunk_overlap: int = 200
     top_k: int = 5
-    
+
     # Hybrid Search Weights
     semantic_weight: float = 0.5
     keyword_weight: float = 0.5
     rrf_k: int = 60
-    
+
     # Vector DB
     collection_name: str = "malaysian_legal_acts"
-    
+
     # Model Settings (defaults)
     embedding_model: str = "all-MiniLM-L6-v2"  # implicitly used by sentence-transformers
-    llm_model: str = "gemini-2.0-flash-lite"
+    llm_provider: str = "openrouter"  # "openrouter" or "gemini"
+    llm_model: str = "openrouter/free"  # Auto-routes to best available free model
     temperature: float = 0.1
+    openrouter_base_url: str = "https://openrouter.ai/api/v1"
 
 
 @dataclass

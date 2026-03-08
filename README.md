@@ -1,6 +1,6 @@
 # Malaysian Legal RAG System
 
-A Retrieval-Augmented Generation (RAG) pipeline for Malaysian statutory law. This system provides AI-powered legal question answering with citation support, built on ChromaDB for vector storage and Google Gemini for language generation.
+A Retrieval-Augmented Generation (RAG) pipeline for Malaysian statutory law. This system provides AI-powered legal question answering with citation support, built on ChromaDB for vector storage and **OpenRouter for language generation (free models available)**.
 
 ## Overview
 
@@ -153,7 +153,7 @@ graph TD
 |-----------|------------|
 | Language | Python 3.12+ |
 | LLM Framework | LangChain |
-| LLM Provider | Google Gemini 2.0 Flash Lite |
+| LLM Provider | OpenRouter (Free Models: Gemma 3, Llama 3, etc.) |
 | Vector Database | ChromaDB (local persistence) **or PostgreSQL + pgvector** |
 | Embedding Model | sentence-transformers/all-MiniLM-L6-v2 (384 dims) |
 | Keyword Search | BM25 (rank_bm25) |
@@ -215,7 +215,7 @@ MyLaw-RAG/
 
 - Python 3.10 or higher
 - pip package manager
-- Google API key for Gemini access
+- OpenRouter API key (free tier available) or Google API key
 
 ### Setup Steps
 
@@ -246,13 +246,15 @@ MyLaw-RAG/
    cp .env.example .env
    ```
 
-   Edit `.env` and set:
+   Edit `.env` and set your OpenRouter API key (recommended for free models):
 
    ```
-   GEMINI_API_KEY=your_api_key_here
+   OPENROUTER_API_KEY=your_openrouter_api_key_here
    ```
 
-   To obtain a Google API key, visit [Google AI Studio](https://aistudio.google.com/).
+   Get your free OpenRouter API key at [openrouter.ai/keys](https://openrouter.ai/keys).
+
+   **Alternatively**, you can use Google Gemini by setting `GOOGLE_API_KEY` and changing the `llm_provider` in the code to `"gemini"`.
 
 ---
 
@@ -387,7 +389,7 @@ Please ensure you:
 
 3. **Not Legal Advice**: This system provides information retrieval and AI-generated summaries. It is not a substitute for professional legal counsel.
 
-4. **API Dependency**: LLM generation requires an active Google API key with available quota. The system falls back to displaying raw retrieved sections when the API is unavailable.
+4. **API Dependency**: LLM generation requires an active API key (OpenRouter or Google). The system falls back to displaying raw retrieved sections when the API is unavailable. OpenRouter offers free tier models with no cost.
 
 5. **Category Coverage**: While commercial and property law are well-represented, other legal domains have limited or no coverage.
 
