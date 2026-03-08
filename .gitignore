@@ -44,4 +44,6 @@ wheels/
 
 # Claude / AI Assistant (keep in repo but don't track changes)
 .claude/
-.claude/settings.local.json
+
+# Documentation (keep in repo, don't auto-commit)
+docs/
