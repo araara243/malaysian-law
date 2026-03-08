@@ -158,7 +158,7 @@ def render_sidebar():
         Always consult a qualified lawyer for specific legal matters.
         """)
         
-        return show_sources
+        return show_sources, show_stats
 
 
 def render_sources(sources: list):
