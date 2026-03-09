@@ -26,6 +26,7 @@ load_dotenv(PROJECT_ROOT / ".env")
 
 from generation.rag_chain import LegalRAGChain
 from retrieval.hybrid_retriever import HybridRetriever
+from generation.openrouter_models import fetch_free_models, get_model_display_name
 
 
 # Page configuration
@@ -77,11 +78,10 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-@st.cache_resource
-def load_rag_chain():
-    """Load and cache the RAG chain."""
+def load_rag_chain(model_name: str = "openrouter/free"):
+    """Load RAG chain with specified model."""
     return LegalRAGChain(
-        model_name="openrouter/free",  # Auto-routes to best available free model
+        model_name=model_name,
         temperature=0.1,
         n_results=5,
         retrieval_method="hybrid",
@@ -141,11 +141,44 @@ def render_sidebar():
         show_stats = st.checkbox("Enable response logging", value=False,
                                         help="Log responses for model comparison and statistics")
 
-        st.markdown("""
-        ### 🤖 AI Model
-        **Provider:** OpenRouter (Free Tier)
-        **Model:** Auto-routing to best free model
+        # Model selector
+        @st.cache_data(ttl=3600)
+        def get_model_options():
+            """Fetch and cache available models (1-hour TTL)."""
+            return fetch_free_models()
 
+        st.markdown("### 🤖 AI Model")
+
+        model_options = get_model_options()
+        model_names = [m["name"] for m in model_options]
+        model_ids = [m["id"] for m in model_options]
+
+        # Initialize session state for selected model
+        if "selected_model" not in st.session_state:
+            st.session_state.selected_model = "openrouter/free"
+        if "selected_model_name" not in st.session_state:
+            st.session_state.selected_model_name = "Auto-route to Best Free Model"
+
+        # Model selector dropdown
+        current_idx = model_ids.index(st.session_state.selected_model)
+        selected_idx = st.selectbox(
+            "Select Model:",
+            options=range(len(model_options)),
+            format_func=lambda i: model_names[i],
+            index=current_idx,
+            key="model_selector"
+        )
+
+        # Update session state when model changes
+        if selected_idx != current_idx:
+            st.session_state.selected_model = model_ids[selected_idx]
+            st.session_state.selected_model_name = model_names[selected_idx]
+            st.rerun()
+
+        # Display selected model info
+        st.caption(f"Selected: {st.session_state.selected_model_name}")
+
+        st.markdown("""
         Get your free API key at [openrouter.ai](https://openrouter.ai/keys)
         """)
 
@@ -203,16 +236,11 @@ def main():
     st.markdown('<p class="main-header">⚖️ Malaysian Legal Assistant</p>', unsafe_allow_html=True)
     st.markdown('<p class="sub-header">Ask questions about Malaysian Contracts, Specific Relief, and Housing Development law</p>', unsafe_allow_html=True)
 
-    # Model info (transparency)
-    from generation.rag_chain import LegalRAGChain
-    model_info = LegalRAGChain.get_model_info()
-
-    # Display model info
+    # Model info (transparency) - display dynamically selected model
     st.caption(
-        f"🤖 AI Provider: {model_info['provider'].upper()} | "
-        f"Model: {model_info['model']} | "
-        f"Temp: {model_info['temperature']} | "
-        f"{model_info['description']}"
+        f"🤖 AI Provider: OpenRouter | "
+        f"Model: {st.session_state.selected_model_name} | "
+        f"ID: {st.session_state.selected_model}"
     )
     st.markdown("---")
     
@@ -225,7 +253,7 @@ def main():
     
     # Load RAG chain
     try:
-        rag_chain = load_rag_chain()
+        rag_chain = load_rag_chain(model_name=st.session_state.selected_model)
     except Exception as e:
         st.error(f"Error loading RAG system: {e}")
         st.stop()
