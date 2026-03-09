@@ -207,8 +207,7 @@ class LegalRAGChain:
     def ask(
         self,
         question: str,
-        return_sources: bool = True,
-        log_response: bool = False
+        return_sources: bool = True
     ) -> dict:
         """
         Ask a legal question and get an answer with citations.

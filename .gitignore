@@ -47,3 +47,4 @@ wheels/
 
 # Documentation (keep in repo, don't auto-commit)
 docs/
+.serena/
