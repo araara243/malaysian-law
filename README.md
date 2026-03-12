@@ -230,6 +230,10 @@ streamlit run src/app/app.py
 
 The application will be available at `http://localhost:8501`.
 
+Video demo
+
+https://github.com/user-attachments/assets/463f897a-28c7-4da6-9cf3-b08d6f0c8f72
+
 ### AI Model Selection
 
 The Streamlit sidebar includes a **dynamic model selector dropdown** that allows you to choose from:
