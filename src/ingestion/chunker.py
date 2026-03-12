@@ -20,11 +20,19 @@ from typing import Optional, List, Dict, Any, Union
 
 import tiktoken
 
-from config import (
-    RAGConfig,
-    get_processed_dir,
-    setup_logging
-)
+# Import config - handle both module and direct execution
+try:
+    from src.config import (
+        RAGConfig,
+        get_processed_dir,
+        setup_logging
+    )
+except ImportError:
+    from config import (
+        RAGConfig,
+        get_processed_dir,
+        setup_logging
+    )
 
 # Configure logging
 logger = setup_logging(__name__)
@@ -71,7 +79,10 @@ class LegalChunk:
     start_position: int
     cross_references: List[str]      # NEW: References to other Acts
     keywords: List[str]              # NEW: Extracted legal terms
-
+    contained_sections: List[str]    # NEW: All section numbers mentioned in chunk
+    
+# Configure logging
+logger = setup_logging(__name__)
 
 # Regex patterns for Malaysian legal document structure
 SECTION_PATTERN = re.compile(
@@ -287,10 +298,53 @@ def extract_cross_references(text: str) -> List[str]:
     return list(set(references))[:10]  # Max 10 references
 
 
+def repeat_section_title(
+    chunk: Dict[str, Any],
+    repetitions: int = 3
+) -> Dict[str, Any]:
+    """
+    Repeat section title in chunk content to boost BM25 relevance.
+
+    This helps distinguish between adjacent sections that share vocabulary
+    but have different legal purposes (captured in their titles).
+
+    Adjacent sections often have nearly identical vocabulary but different
+    section titles that capture the legal nuance:
+    - S50: "Injunctions when contract rescindable or voidable"
+    - S52: "Injunctions in cases of breach"
+    - S53: "Mandatory injunction"
+
+    The section titles contain the disambiguating keywords, but they're
+    not given enough weight in BM25/semantic search. By repeating the
+    title, we dramatically increase the TF-IDF score for title words.
+
+    Args:
+        chunk: Chunk dictionary with 'content' and 'section_title' keys
+        repetitions: Number of times to repeat title (default: 3)
+
+    Returns:
+        Modified chunk with title repeated in content
+    """
+    if not chunk.get('section_title'):
+        return chunk
+
+    title = chunk['section_title'].strip()
+    original_content = chunk['content']
+
+    # Repeat title at beginning (not in the metadata header)
+    title_repetition = ' '.join([title] * repetitions) + '. '
+
+    # Prepend to content
+    chunk['content'] = title_repetition + original_content
+
+    return chunk
+
+
 def chunk_document(
     document: Dict[str, Any],
     max_tokens: int = 1000,
-    min_tokens: int = 50
+    min_tokens: int = 50,
+    config: Optional[RAGConfig] = None
 ) -> List[LegalChunk]:
     """
     Chunk a processed legal document into semantic chunks.
@@ -314,7 +368,10 @@ def chunk_document(
 
     # Import get_act_category if not provided
     if category == "other":
-        from config import get_act_category
+        try:
+            from src.config import get_act_category
+        except ImportError:
+            from config import get_act_category
         category = get_act_category(act_number)
     
     chunks: List[LegalChunk] = []
@@ -337,7 +394,8 @@ def chunk_document(
             token_count=count_tokens(text),
             start_position=0,
             cross_references=[],
-            keywords=extract_keywords(text)
+            keywords=extract_keywords(text),
+            contained_sections=[]
         )
         return [chunk]
     
@@ -359,7 +417,8 @@ def chunk_document(
                 token_count=count_tokens(preamble),
                 start_position=0,
                 cross_references=[],
-                keywords=extract_keywords(preamble)
+                keywords=extract_keywords(preamble),
+                contained_sections=[]
             )
             chunks.append(chunk)
     
@@ -381,17 +440,18 @@ def chunk_document(
                     chunk_id=prev.chunk_id,
                     act_name=prev.act_name,
                     act_number=prev.act_number,
-                    act_year=prev.act_year,                # NEW
-                    category=prev.category,                # NEW
+                    act_year=prev.act_year,
+                    category=prev.category,
                     part=prev.part,
                     section_number=prev.section_number,
                     section_title=prev.section_title,
-                    subsection=prev.subsection,            # NEW
+                    subsection=prev.subsection,
                     content=prev.content + "\n\n" + chunk_text,
                     token_count=count_tokens(prev.content + "\n\n" + chunk_text),
                     start_position=prev.start_position,
-                    cross_references=prev.cross_references, # NEW
-                    keywords=prev.keywords                  # NEW
+                    cross_references=prev.cross_references,
+                    keywords=prev.keywords,
+                    contained_sections=prev.contained_sections
                 )
                 continue
             
@@ -410,28 +470,51 @@ def chunk_document(
                 seen_ids[base_id] = 0
                 chunk_id = base_id
             
-            chunk = LegalChunk(
-                chunk_id=chunk_id,
-                act_name=act_name,
-                act_number=act_number,
-                act_year=act_year,
-                category=category,
-                part=current_part,
-                section_number=section["section_number"],
-                section_title=section["title"],
-                subsection=None,
-                content=chunk_text,
-                token_count=count_tokens(chunk_text),
-                start_position=section["start"],
-                cross_references=extract_cross_references(chunk_text),
-                keywords=extract_keywords(chunk_text)
+            # Extract all section numbers from the chunk content
+            all_sections = list(set(re.findall(r'Section\s+[\d]+[A-Za-z]*', chunk_text)))
+            # Sort sections naturally for consistency
+            all_sections.sort(key=lambda x: int(''.join(filter(str.isdigit, x))))
+
+            # Create kwargs with contained_sections field
+            chunk_kwargs = {
+                'chunk_id': chunk_id,
+                'act_name': act_name,
+                'act_number': act_number,
+                'act_year': act_year,
+                'category': category,
+                'part': current_part,
+                'section_number': section["section_number"],
+                'section_title': section["title"],
+                'subsection': None,
+                'content': chunk_text,
+                'token_count': count_tokens(chunk_text),
+                'start_position': section["start"],
+                'cross_references': extract_cross_references(chunk_text),
+                'keywords': extract_keywords(chunk_text),
+            }
+            # Extract all section numbers from the chunk content
+            contained_sections = list(set(re.findall(r'Section\s+[\d]+[A-Za-z]*', chunk_text)))
+            # Sort sections naturally for consistency
+            contained_sections.sort(key=lambda x: int(''.join(filter(str.isdigit, x))))
+            chunk_kwargs['contained_sections'] = contained_sections
+
+            chunk = LegalChunk(**chunk_kwargs)
+
+            # Apply title repetition for BM25 boost
+            # Convert to dict, apply repetition, then back to LegalChunk
+            chunk_dict = asdict(chunk)
+            chunk_dict = repeat_section_title(
+                chunk_dict,
+                repetitions=config.title_repetition_count
             )
+            chunk = LegalChunk(**chunk_dict)
+
             chunks.append(chunk)
     
     return chunks
 
 
-def process_all_documents(max_tokens: int = 1000) -> Dict[str, Dict[str, int]]:
+def process_all_documents(max_tokens: int = 1000, config: Optional[RAGConfig] = None) -> Dict[str, Dict[str, int]]:
     """
     Process all documents in the processed directory and create chunks.
     
@@ -464,12 +547,12 @@ def process_all_documents(max_tokens: int = 1000) -> Dict[str, Dict[str, int]]:
     
     for json_path in json_files:
         logger.info(f"\nProcessing: {json_path.name}")
-        
+
         try:
             with open(json_path, "r", encoding="utf-8") as f:
                 document = json.load(f)
-            
-            chunks = chunk_document(document, max_tokens)
+
+            chunks = chunk_document(document, max_tokens, config=config)
             all_chunks.extend(chunks)
             
             # Save chunks for this document
@@ -505,4 +588,4 @@ def process_all_documents(max_tokens: int = 1000) -> Dict[str, Dict[str, int]]:
 
 if __name__ == "__main__":
     config = RAGConfig()
-    process_all_documents(max_tokens=config.chunk_size)
+    process_all_documents(max_tokens=config.chunk_size, config=config)

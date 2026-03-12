@@ -48,3 +48,6 @@ wheels/
 # Documentation (keep in repo, don't auto-commit)
 docs/
 .serena/
+
+data/vector_db/
+data/response_log.json

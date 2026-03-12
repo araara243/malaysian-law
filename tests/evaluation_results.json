@@ -1,9 +1,9 @@
 {
   "metrics": {
-    "hit_rate_at_1": 0.95,
+    "hit_rate_at_1": 0.85,
     "hit_rate_at_3": 1.0,
     "hit_rate_at_5": 1.0,
-    "mrr": 0.975,
+    "mrr": 0.9166666666666666,
     "total_questions": 20
   },
   "individual_results": [
@@ -12,11 +12,11 @@
       "question": "What is the definition of 'consideration' under Malaysian contract law?",
       "expected": "Contracts Act 1950, Section 2(d)",
       "hit_at_3": true,
-      "reciprocal_rank": 0.5,
+      "reciprocal_rank": 1.0,
       "top_sources": [
-        "Specific Relief Act 1951, Section 43",
-        "Contracts Act 1950, Section 179",
-        "Contracts Act 1950, Section 1"
+        "Contracts Act 1950, Section 24",
+        "Contracts Act 1950, Section 26",
+        "Contracts Act 1950, Section 2"
       ]
     },
     {
@@ -26,9 +26,9 @@
       "hit_at_3": true,
       "reciprocal_rank": 1.0,
       "top_sources": [
-        "Contracts Act 1950, Section 12",
-        "Contracts Act 1950, Section 179",
-        "Contracts Act 1950, Section 32"
+        "Contracts Act 1950, Section 21",
+        "Contracts Act 1950, Section 10",
+        "Contracts Act 1950, Section 37"
       ]
     },
     {
@@ -38,8 +38,8 @@
       "hit_at_3": true,
       "reciprocal_rank": 1.0,
       "top_sources": [
-        "Contracts Act 1950, Section 12",
-        "Contracts Act 1950, Section 179",
+        "Contracts Act 1950, Section 14",
+        "Contracts Act 1950, Section 10",
         "Contracts Act 1950, Section 179"
       ]
     },
@@ -50,9 +50,9 @@
       "hit_at_3": true,
       "reciprocal_rank": 1.0,
       "top_sources": [
-        "Specific Relief Act 1951, Section 11",
-        "Specific Relief Act 1951, Section 43",
-        "Specific Relief Act 1951, Section 43"
+        "Specific Relief Act 1951, Section 19",
+        "Specific Relief Act 1951, Section 36",
+        "Contracts Act 1950, Section 34"
       ]
     },
     {
@@ -62,9 +62,9 @@
       "hit_at_3": true,
       "reciprocal_rank": 1.0,
       "top_sources": [
-        "Housing Development (Control and Licensing) Act 1966, Section 17",
-        "Housing Development (Control and Licensing) Act 1966, Section 1",
-        "Housing Development (Control and Licensing) Act 1966, Section 16"
+        "Housing Development (Control and Licensing) Act 1966, Section 7B",
+        "Housing Development (Control and Licensing) Act 1966, Section 24",
+        "Housing Development (Control and Licensing) Act 1966, Section 9"
       ]
     },
     {
@@ -72,10 +72,10 @@
       "question": "What is 'undue influence' in a contract?",
       "expected": "Contracts Act 1950, Section 16",
       "hit_at_3": true,
-      "reciprocal_rank": 1.0,
+      "reciprocal_rank": 0.5,
       "top_sources": [
-        "Contracts Act 1950, Section 12",
-        "Contracts Act 1950, Section 179",
+        "Contracts Act 1950, Section 20",
+        "Contracts Act 1950, Section 16",
         "Contracts Act 1950, Section 179"
       ]
     },
@@ -84,11 +84,11 @@
       "question": "What is fraud under the Contracts Act?",
       "expected": "Contracts Act 1950, Section 17",
       "hit_at_3": true,
-      "reciprocal_rank": 1.0,
+      "reciprocal_rank": 0.5,
       "top_sources": [
-        "Contracts Act 1950, Section 179",
-        "Contracts Act 1950, Section 12",
-        "Specific Relief Act 1951, Section 43"
+        "Contracts Act 1950, Section 191",
+        "Contracts Act 1950, Section 17",
+        "Contracts Act 1950, Section 179"
       ]
     },
     {
@@ -98,9 +98,9 @@
       "hit_at_3": true,
       "reciprocal_rank": 1.0,
       "top_sources": [
-        "Contracts Act 1950, Section 12",
-        "Contracts Act 1950, Section 179",
-        "Contracts Act 1950, Section 32"
+        "Contracts Act 1950, Section 30",
+        "Contracts Act 1950, Section 28",
+        "Contracts Act 1950, Section 37"
       ]
     },
     {
@@ -111,8 +111,8 @@
       "reciprocal_rank": 1.0,
       "top_sources": [
         "Housing Development (Control and Licensing) Act 1966, Section 9",
-        "Housing Development (Control and Licensing) Act 1966, Section 4",
-        "Housing Development (Control and Licensing) Act 1966, Section 9"
+        "Housing Development (Control and Licensing) Act 1966, Section 9",
+        "Housing Development (Control and Licensing) Act 1966, Section 4"
       ]
     },
     {
@@ -122,9 +122,9 @@
       "hit_at_3": true,
       "reciprocal_rank": 1.0,
       "top_sources": [
-        "Contracts Act 1950, Section 12",
-        "Specific Relief Act 1951, Section 43",
-        "Specific Relief Act 1951, Section 43"
+        "Contracts Act 1950, Section 28",
+        "Specific Relief Act 1951, Section 19",
+        "Contracts Act 1950, Section 34"
       ]
     },
     {
@@ -132,11 +132,11 @@
       "question": "What is the penalty for carrying on housing development without a license?",
       "expected": "Housing Development (Control and Licensing) Act 1966, Section 5",
       "hit_at_3": true,
-      "reciprocal_rank": 1.0,
+      "reciprocal_rank": 0.3333333333333333,
       "top_sources": [
-        "Housing Development (Control and Licensing) Act 1966, Section 16",
-        "Housing Development (Control and Licensing) Act 1966, Section 9",
-        "Housing Development (Control and Licensing) Act 1966, Section 4"
+        "Housing Development (Control and Licensing) Act 1966, Section 18",
+        "Housing Development (Control and Licensing) Act 1966, Section 21",
+        "Housing Development (Control and Licensing) Act 1966, Section 5"
       ]
     },
     {
@@ -146,9 +146,9 @@
       "hit_at_3": true,
       "reciprocal_rank": 1.0,
       "top_sources": [
+        "Specific Relief Act 1951, Section 21",
         "Specific Relief Act 1951, Section 43",
-        "Specific Relief Act 1951, Section 43",
-        "Specific Relief Act 1951, Section 43"
+        "Specific Relief Act 1951, Section 27"
       ]
     },
     {
@@ -158,9 +158,9 @@
       "hit_at_3": true,
       "reciprocal_rank": 1.0,
       "top_sources": [
-        "Contracts Act 1950, Section 12",
-        "Specific Relief Act 1951, Section 43",
-        "Contracts Act 1950, Section 179"
+        "Contracts Act 1950, Section 26",
+        "Contracts Act 1950, Section 25",
+        "Contracts Act 1950, Section 10"
       ]
     },
     {
@@ -170,9 +170,9 @@
       "hit_at_3": true,
       "reciprocal_rank": 1.0,
       "top_sources": [
-        "Contracts Act 1950, Section 179",
-        "Contracts Act 1950, Section 12",
-        "Contracts Act 1950, Section 179"
+        "Contracts Act 1950, Section 18",
+        "Contracts Act 1950, Section 191",
+        "Contracts Act 1950, Section 191"
       ]
     },
     {
@@ -182,9 +182,9 @@
       "hit_at_3": true,
       "reciprocal_rank": 1.0,
       "top_sources": [
-        "Specific Relief Act 1951, Section 43",
-        "Specific Relief Act 1951, Section 43",
-        "Specific Relief Act 1951, Section 43"
+        "Specific Relief Act 1951, Section 52",
+        "Specific Relief Act 1951, Section 53",
+        "Specific Relief Act 1951, Section 54"
       ]
     },
     {
@@ -194,9 +194,9 @@
       "hit_at_3": true,
       "reciprocal_rank": 1.0,
       "top_sources": [
-        "Contracts Act 1950, Section 12",
-        "Contracts Act 1950, Section 179",
-        "Contracts Act 1950, Section 179"
+        "Contracts Act 1950, Section 21",
+        "Contracts Act 1950, Section 22",
+        "Contracts Act 1950, Section Preamble"
       ]
     },
     {
@@ -206,9 +206,9 @@
       "hit_at_3": true,
       "reciprocal_rank": 1.0,
       "top_sources": [
+        "Housing Development (Control and Licensing) Act 1966, Section 13",
         "Housing Development (Control and Licensing) Act 1966, Section 4",
-        "Housing Development (Control and Licensing) Act 1966, Section 1",
-        "Housing Development (Control and Licensing) Act 1966, Section 17"
+        "Housing Development (Control and Licensing) Act 1966, Section 4"
       ]
     },
     {
@@ -218,9 +218,9 @@
       "hit_at_3": true,
       "reciprocal_rank": 1.0,
       "top_sources": [
-        "Contracts Act 1950, Section 12",
-        "Contracts Act 1950, Section 179",
-        "Specific Relief Act 1951, Section 43"
+        "Contracts Act 1950, Section 31",
+        "Contracts Act 1950, Section 30",
+        "Contracts Act 1950, Section 10"
       ]
     },
     {
@@ -230,9 +230,9 @@
       "hit_at_3": true,
       "reciprocal_rank": 1.0,
       "top_sources": [
-        "Specific Relief Act 1951, Section 27",
-        "Specific Relief Act 1951, Section 43",
-        "Specific Relief Act 1951, Section 43"
+        "Specific Relief Act 1951, Section 29",
+        "Specific Relief Act 1951, Section 30",
+        "Specific Relief Act 1951, Section 32"
       ]
     },
     {
@@ -242,9 +242,9 @@
       "hit_at_3": true,
       "reciprocal_rank": 1.0,
       "top_sources": [
-        "Contracts Act 1950, Section 12",
-        "Specific Relief Act 1951, Section 43",
-        "Contracts Act 1950, Section 179"
+        "Contracts Act 1950, Section 28",
+        "Contracts Act 1950, Section 1",
+        "Contracts Act 1950, Section 10"
       ]
     }
   ]

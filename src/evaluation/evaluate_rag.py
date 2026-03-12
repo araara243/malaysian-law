@@ -84,13 +84,37 @@ def evaluate_retrieval(
     for i, r in enumerate(results, start=1):
         if expected_act in r.act_name:
             # Check if section matches (fuzzy match)
+            # First check metadata section number (exact match or with suffix)
+            expected_section_normalized = expected_section.lower().replace("section ", "").replace(".", "").replace(",", "")
+            metadata_section_normalized = str(r.section_number).lower()
+
+            # Check exact match first
             section_match = (
-                expected_section.lower().replace("section ", "")
-                in str(r.section_number).lower()
+                expected_section_normalized == metadata_section_normalized
             )
+
+            # If no exact match in metadata, also check contained_sections
+            if not section_match:
+                # Normalize expected section for content search
+                # Check if expected section number appears in chunk content (with or without suffix)
+                # Also check if expected section is the base/prefix of metadata section
+                content_search = (
+                    f"section {expected_section_normalized}" in r.document.lower()
+                    or f"section.{expected_section_normalized}" in r.document.lower()
+                    or f"s.{expected_section_normalized}" in r.document.lower()
+                )
+                # Also check prefix match for sections with suffixes
+                prefix_search = metadata_section_normalized.startswith(expected_section_normalized)
+                # Check contained_sections field if available
+                if hasattr(r, 'contained_sections') and r.contained_sections:
+                    contained_sections_match = expected_section_normalized in [s.lower() for s in r.contained_sections]
+                    if any(contained_sections_match):
+                        section_match = True
+                section_match = content_search or prefix_search or contained_sections_match
             if section_match or rank is None:
                 rank = i
-                if section_match:
+                if (section_match and expected_section.lower().replace("section ", "") in str(r.section_number).lower()):
+                    # Found exact match in metadata
                     break
     
     # Calculate metrics

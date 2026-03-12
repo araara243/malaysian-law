@@ -78,19 +78,20 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-def load_rag_chain(model_name: str = "openrouter/free"):
+def load_rag_chain(model_name: str = "openrouter/free", use_reranker: bool = True):
     """Load RAG chain with specified model."""
     return LegalRAGChain(
         model_name=model_name,
         temperature=0.1,
         n_results=5,
         retrieval_method="hybrid",
-        llm_provider="openrouter"
+        llm_provider="openrouter",
+        use_reranker=use_reranker
     )
 
 
 def render_sidebar():
-    """Render the sidebar with info and settings."""
+    """Render sidebar with info and settings."""
     with st.sidebar:
         st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Coat_of_arms_of_Malaysia.svg/200px-Coat_of_arms_of_Malaysia.svg.png", width=100)
         
@@ -103,11 +104,9 @@ def render_sidebar():
         - Specific Relief Act 1951 (Act 137)
         - Partnership Act 1961 (Act 135)
         - Sale of Goods Act 1957 (Act 383)
-
         **Property Law:**
         - Housing Development (Control and Licensing) Act 1966 (Act 118)
         - Strata Titles Act 1985 (Act 318)
-
         **Civil Procedure:**
         - Courts of Judicature Act 1964 (Act 91)
         """)
@@ -116,49 +115,47 @@ def render_sidebar():
         
         st.markdown("""
         ### 💡 Example Questions
-
         **Contract Law:**
-        - What is the definition of consideration in contract law?
+        - What is definition of consideration in contract law?
         - When is a contract voidable due to coercion?
         - What constitutes free consent in contracts?
-        - What is fraud under the Contracts Act?
-
+        - What is fraud under Contracts Act?
         **Property Law:**
         - What are the licensing requirements for housing developers?
         - What is a Housing Development Account?
         - What powers does the Controller have over developers?
-
         **General:**
         - When can specific performance be ordered by a court?
         - What remedies are available for breach of contract?
         """)
         
         st.markdown("---")
-
+        
         # Settings
         st.markdown("### ⚙️ Settings")
         show_sources = st.checkbox("Show source sections", value=True)
         show_stats = st.checkbox("Enable response logging", value=False,
                                         help="Log responses for model comparison and statistics")
-
+        enable_reranker = st.checkbox("Enable Cross-Encoder Reranking", value=True,
+                                     help="Improve retrieval quality with cross-encoder (adds ~50-100ms)")
+        
         # Model selector
         @st.cache_data(ttl=3600)
         def get_model_options():
             """Fetch and cache available models (1-hour TTL)."""
             return fetch_free_models()
-
+        
         st.markdown("### 🤖 AI Model")
-
         model_options = get_model_options()
         model_names = [m["name"] for m in model_options]
         model_ids = [m["id"] for m in model_options]
-
+        
         # Initialize session state for selected model
         if "selected_model" not in st.session_state:
             st.session_state.selected_model = "openrouter/free"
         if "selected_model_name" not in st.session_state:
             st.session_state.selected_model_name = "Auto-route to Best Free Model"
-
+        
         # Model selector dropdown
         current_idx = model_ids.index(st.session_state.selected_model)
         selected_idx = st.selectbox(
@@ -168,20 +165,18 @@ def render_sidebar():
             index=current_idx,
             key="model_selector"
         )
-
         # Update session state when model changes
         if selected_idx != current_idx:
             st.session_state.selected_model = model_ids[selected_idx]
             st.session_state.selected_model_name = model_names[selected_idx]
             st.rerun()
-
+        
         # Display selected model info
         st.caption(f"Selected: {st.session_state.selected_model_name}")
-
         st.markdown("""
         Get your free API key at [openrouter.ai](https://openrouter.ai/keys)
         """)
-
+        
         st.markdown("---")
         
         st.markdown("""
@@ -191,7 +186,7 @@ def render_sidebar():
         Always consult a qualified lawyer for specific legal matters.
         """)
         
-        return show_sources, show_stats
+        return show_sources, show_stats, enable_reranker
 
 
 def render_sources(sources: list):
@@ -227,11 +222,45 @@ def render_sources(sources: list):
                 st.text(source.content[:500] + "..." if len(source.content) > 500 else source.content)
 
 
+def render_citation_verification(verification: dict):
+    """Render citation verification results."""
+    if not verification or verification.get("total", 0) == 0:
+        return
+    
+    total = verification.get("total", 0)
+    verified = verification.get("verified", 0)
+    unverified = verification.get("unverified", 0)
+    rate = verification.get("rate", 1.0)
+    
+    percentage = rate * 100
+    
+    # Status message
+    if rate == 1.0:
+        st.success("✅ All citations verified against retrieved sources")
+    elif rate >= 0.8:
+        st.warning(f"⚠️ {percentage:.0f}% of citations verified")
+    elif rate >= 0.5:
+        st.warning(f"⚠️ {percentage:.0f}% of citations verified")
+    else:
+        st.error(f"❌ {percentage:.0f}% of citations verified")
+    
+    with st.expander(f"📋 Citation Verification Details ({verified}/{total})", expanded=False):
+        st.markdown(f"**Total citations found:** {total}")
+        st.markdown(f"**Verified:** {verified}")
+        st.markdown(f"**Unverified:** {unverified}")
+        
+        warnings = verification.get("warnings", [])
+        if warnings:
+            st.markdown("\n**⚠️ Warnings:**")
+            for warning in warnings:
+                st.warning(f"  • {warning}")
+
+
 def main():
     """Main application."""
     # Render sidebar
-    show_sources, show_stats = render_sidebar()
-
+    show_sources, show_stats, enable_reranker = render_sidebar()
+    
     # Main content
     st.markdown('<p class="main-header">⚖️ Malaysian Legal Assistant</p>', unsafe_allow_html=True)
     st.markdown('<p class="sub-header">Ask questions about Malaysian Contracts, Specific Relief, and Housing Development law</p>', unsafe_allow_html=True)
@@ -253,7 +282,10 @@ def main():
     
     # Load RAG chain
     try:
-        rag_chain = load_rag_chain(model_name=st.session_state.selected_model)
+        rag_chain = load_rag_chain(
+            model_name=st.session_state.selected_model,
+            use_reranker=enable_reranker
+        )
     except Exception as e:
         st.error(f"Error loading RAG system: {e}")
         st.stop()
@@ -283,11 +315,21 @@ def main():
             with st.chat_message("assistant"):
                 with st.spinner("Researching Malaysian law..."):
                     try:
-                        result = rag_chain.ask(prompt, return_sources=True, log_response=show_stats)
+                        result = rag_chain.ask(
+                            prompt, 
+                            return_sources=True, 
+                            log_response=show_stats,
+                            verify_citations=True
+                        )
                         answer = result["answer"]
                         sources = result.get("sources", [])
                         
                         st.markdown(answer)
+                        
+                        # Display citation verification if available
+                        citation_verification = result.get("citation_verification")
+                        if citation_verification:
+                            render_citation_verification(citation_verification)
                         
                         # Store sources for display
                         st.session_state.sources = sources
@@ -299,7 +341,7 @@ def main():
                         # Fall back to retrieval only
                         sources = rag_chain.retrieve(prompt)
                         context = rag_chain._retriever.format_context(sources)
-                        answer = f"**Retrieved Legal Sections:**\n\n{context}"
+                        answer = f"**Retrieved Legal Sections:**\\n\\n{context}"
                         st.markdown(answer)
                         st.session_state.sources = sources
             

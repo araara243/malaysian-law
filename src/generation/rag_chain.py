@@ -79,10 +79,11 @@ class LegalRAGChain:
         temperature: float = 0.1,
         n_results: int = 5,
         retrieval_method: str = "hybrid",
-        llm_provider: str = "openrouter"
+        llm_provider: str = "openrouter",
+        use_reranker: bool = None
     ):
         """
-        Initialize the Legal RAG Chain.
+        Initialize Legal RAG Chain.
 
         Args:
             model_name: Model to use (e.g., google/gemma-3-4b-it:free, meta-llama/llama-3-8b-instruct:free).
@@ -90,12 +91,15 @@ class LegalRAGChain:
             n_results: Number of chunks to retrieve.
             retrieval_method: "hybrid", "semantic", or "keyword".
             llm_provider: "openrouter" or "gemini".
+            use_reranker: Whether to use cross-encoder reranking.
+                         If None, uses config.enable_reranker.
         """
         self.model_name = model_name
         self.temperature = temperature
         self.n_results = n_results
         self.retrieval_method = retrieval_method
         self.llm_provider = llm_provider
+        self.use_reranker = use_reranker
         
         # Initialize components
         self._retriever = None
@@ -158,7 +162,7 @@ class LegalRAGChain:
         )
     
     def _build_chain(self):
-        """Build the LangChain RAG pipeline."""
+        """Build LangChain RAG pipeline."""
         if self._llm is None:
             self._chain = None
             return
@@ -174,7 +178,8 @@ class LegalRAGChain:
             results = self._retriever.retrieve(
                 query,
                 n_results=self.n_results,
-                method=self.retrieval_method
+                method=self.retrieval_method,
+                use_reranker=self.use_reranker
             )
             return self._retriever.format_context(results)
         
@@ -201,14 +206,16 @@ class LegalRAGChain:
         return self._retriever.retrieve(
             question,
             n_results=self.n_results,
-            method=self.retrieval_method
+            method=self.retrieval_method,
+            use_reranker=self.use_reranker
         )
     
     def ask(
         self,
         question: str,
         return_sources: bool = True,
-        log_response: bool = True
+        log_response: bool = True,
+        verify_citations: bool = True
     ) -> dict:
         """
         Ask a legal question and get an answer with citations.
@@ -217,6 +224,10 @@ class LegalRAGChain:
             question: The user's legal question.
             return_sources: Whether to include source chunks.
             log_response: Whether to log response for statistics (default True).
+            verify_citations: Whether to verify citations in response (default True).
+        
+        Returns:
+            Dict with answer, sources, and optional citation_verification.
         """
         import time
 
@@ -231,7 +242,8 @@ class LegalRAGChain:
         if not sources:
             return {
                 "answer": NO_CONTEXT_PROMPT.format(question=question),
-                "sources": []
+                "sources": [],
+                "citation_verification": None
             }
 
         # Generate answer
@@ -243,13 +255,43 @@ class LegalRAGChain:
                     "⚠️ LLM generation is disabled (no API key). "
                     "Here are the relevant legal sections:\n\n" + context
                 ),
-                "sources": sources if return_sources else []
+                "sources": sources if return_sources else [],
+                "citation_verification": None
             }
 
-        # Run the chain with timing
+        # Run chain with timing
         generation_start = time.time()
         answer = self._chain.invoke(question)
         generation_end = time.time()
+
+        # Verify citations if enabled
+        citation_verification = None
+        if verify_citations:
+            try:
+                from generation.citation_verifier import CitationVerifier
+                verifier = CitationVerifier()
+                
+                # Prepare context for verification
+                context_docs = [
+                    {
+                        "content": s.content,
+                        "act_name": s.act_name,
+                        "section_number": s.section_number
+                    }
+                    for s in sources
+                ]
+                
+                citation_verification = verifier.verify_response(answer, context_docs)
+                
+                if citation_verification.hallucinated_citations:
+                    logger.warning(
+                        f"Citation verification found {len(citation_verification.hallucinated_citations)} "
+                        f"potential hallucinations in response"
+                    )
+            except ImportError:
+                logger.warning("Citation verifier not available")
+            except Exception as e:
+                logger.error(f"Citation verification failed: {e}")
 
         # Log response for statistics (optional, can be disabled)
         if log_response:
@@ -290,6 +332,15 @@ class LegalRAGChain:
                 for s in sources
             ]
         
+        if citation_verification is not None:
+            result["citation_verification"] = {
+                "total": citation_verification.total_citations,
+                "verified": len(citation_verification.verified_citations),
+                "unverified": len(citation_verification.hallucinated_citations),
+                "rate": citation_verification.verification_rate,
+                "warnings": citation_verification.warnings
+            }
+        
         return result
     
     def ask_stream(self, question: str):
@@ -301,7 +352,7 @@ class LegalRAGChain:
         if self._chain is None:
             yield "⚠️ LLM generation is disabled (no API key)."
             return
-
+        
         # Build streaming version of chain based on provider
         if self.llm_provider == "openrouter":
             from langchain_openai import ChatOpenAI
@@ -330,11 +381,12 @@ class LegalRAGChain:
             ("human", RAG_PROMPT_TEMPLATE)
         ])
 
-        # Retrieve context
+        # Retrieve context with reranker support
         results = self._retriever.retrieve(
             question,
             n_results=self.n_results,
-            method=self.retrieval_method
+            method=self.retrieval_method,
+            use_reranker=self.use_reranker
         )
         context = self._retriever.format_context(results)
 

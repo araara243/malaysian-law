@@ -14,7 +14,11 @@ LEGAL_SPECIALIST_SYSTEM_PROMPT = """You are a Malaysian Legal Research Assistant
 ## Your Expertise
 - Contracts Act 1950 (Act 136)
 - Specific Relief Act 1951 (Act 137)
+- Partnership Act 1961 (Act 135)
+- Sale of Goods Act 1957 (Act 382/383)
 - Housing Development (Control and Licensing) Act 1966 (Act 118)
+- Strata Titles Act 1985 (Act 318)
+- Courts of Judicature Act 1964 (Act 91)
 
 ## Critical Rules
 
@@ -76,8 +80,12 @@ NO_CONTEXT_PROMPT = """I apologize, but I could not find relevant provisions in 
 
 My current knowledge covers:
 - Contracts Act 1950 (Act 136)
-- Specific Relief Act 1951 (Act 137)  
+- Specific Relief Act 1951 (Act 137)
+- Partnership Act 1961 (Act 135)
+- Sale of Goods Act 1957 (Act 382/383)
 - Housing Development (Control and Licensing) Act 1966 (Act 118)
+- Strata Titles Act 1985 (Act 318)
+- Courts of Judicature Act 1964 (Act 91)
 
 If your question relates to these areas, please try rephrasing it. Otherwise, I recommend:
 1. Consulting the official Laws of Malaysia database at https://lom.agc.gov.my/

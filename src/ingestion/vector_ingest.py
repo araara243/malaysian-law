@@ -13,12 +13,21 @@ import json
 import logging
 from typing import Optional, List, Dict, Any, Union
 
-from config import (
-    RAGConfig,
-    get_processed_dir,
-    get_vector_db_dir,
-    setup_logging
-)
+# Import config - handle both module and direct execution
+try:
+    from src.config import (
+        RAGConfig,
+        get_processed_dir,
+        get_vector_db_dir,
+        setup_logging
+    )
+except ImportError:
+    from config import (
+        RAGConfig,
+        get_processed_dir,
+        get_vector_db_dir,
+        setup_logging
+    )
 
 # Configure logging
 logger = setup_logging(__name__)
@@ -52,8 +61,38 @@ def load_all_chunks() -> List[Dict[str, Any]]:
     return all_chunks
 
 
+def build_embedding_function(model_name: str) -> Any:
+    """
+    Build a ChromaDB-compatible EmbeddingFunction for the given model.
+
+    ChromaDB's default uses all-MiniLM-L6-v2 implicitly, but we want to
+    control which model is used so we can switch to BAAI/bge-base-en-v1.5
+    (768-dim, higher retrieval quality) without ChromaDB silently falling
+    back to the wrong model.
+
+    Args:
+        model_name: HuggingFace model name (e.g. "BAAI/bge-base-en-v1.5").
+
+    Returns:
+        ChromaDB EmbeddingFunction object.
+    """
+    try:
+        from chromadb.utils import embedding_functions
+        ef = embedding_functions.SentenceTransformerEmbeddingFunction(
+            model_name=model_name,
+            device="cpu",
+            normalize_embeddings=True,   # BGE recommends normalization for cosine
+        )
+        logger.info(f"Embedding function ready: {model_name}")
+        return ef
+    except Exception as e:
+        logger.error(f"Failed to build embedding function for {model_name}: {e}")
+        raise
+
+
 def create_chroma_collection(
-    collection_name: str
+    collection_name: str,
+    embedding_fn: Any = None
 ) -> Any:
     """
     Create or get a ChromaDB collection for legal documents.
@@ -84,11 +123,11 @@ def create_chroma_collection(
             settings=Settings(anonymized_telemetry=False)
         )
         
-        # Get or create collection
-        # Using default embedding function (requires sentence-transformers)
+        # Get or create collection with explicit embedding function
         collection = client.get_or_create_collection(
             name=collection_name,
-            metadata={"hnsw:space": "cosine"}  # Cosine similarity
+            metadata={"hnsw:space": "cosine"},  # Cosine similarity
+            embedding_function=embedding_fn,      # None = use ChromaDB default
         )
         
         logger.info(f"ChromaDB collection '{collection_name}' ready at {db_path}")
@@ -125,7 +164,38 @@ def ingest_chunks_to_chroma(
         
         for chunk in chunks:
             ids.append(chunk["chunk_id"])
-            documents.append(chunk["content"])
+            # --- Metadata Enrichment for Embedding (Strategy 3) ---
+            # Prepend a structured identity header to the embedding text so the
+            # vector encodes section identity, not just raw legal prose.
+            # This prevents sibling/adjacent sections from outranking the correct one.
+            #
+            # Format: [Act Name | Act NNN | Section X — Section Title]
+            # The header is embedded but NOT shown to users (raw content kept in metadata).
+            act_name = chunk.get("act_name", "")
+            act_number = chunk.get("act_number", "")
+            section_number = chunk.get("section_number") or ""
+            section_title = chunk.get("section_title") or ""
+            raw_content = chunk.get("content", "")
+
+            # Build the identity header
+            header_parts = []
+            if act_name:
+                header_parts.append(act_name)
+            if act_number:
+                header_parts.append(f"Act {act_number}")
+            if section_number:
+                section_label = f"Section {section_number}"
+                if section_title:
+                    section_label += f" \u2014 {section_title}"
+                header_parts.append(section_label)
+
+            if header_parts:
+                identity_header = "[" + " | ".join(header_parts) + "]"
+                enriched_content = identity_header + "\n\n" + raw_content
+            else:
+                enriched_content = raw_content
+
+            documents.append(enriched_content)
             metadatas.append({
                 "act_name": chunk["act_name"],
                 "act_number": chunk["act_number"],
@@ -212,21 +282,26 @@ def run_ingestion() -> Dict[str, Union[int, str]]:
         Dictionary with ingestion statistics.
     """
     config = RAGConfig()
-    
+
     logger.info("=" * 60)
     logger.info("Starting Vector Database Ingestion")
+    logger.info(f"Embedding model: {config.embedding_model}")
+    logger.info(f"Collection: {config.collection_name}")
     logger.info("=" * 60)
-    
+
     # Load chunks
     chunks = load_all_chunks()
-    
+
     if not chunks:
         logger.error("No chunks found to ingest")
         return {"error": "No chunks found"}
-    
+
     try:
-        # Create collection
-        collection = create_chroma_collection(config.collection_name)
+        # Build embedding function using configured model
+        embedding_fn = build_embedding_function(config.embedding_model)
+
+        # Create collection (will get or create)
+        collection = create_chroma_collection(config.collection_name, embedding_fn)
         
         # Ingest chunks
         ingested = ingest_chunks_to_chroma(chunks, collection)

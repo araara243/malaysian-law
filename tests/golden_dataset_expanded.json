@@ -8,7 +8,7 @@
             "Specific Relief Act 1951 (Act 137)",
             "Housing Development (Control and Licensing) Act 1966 (Act 118)",
             "Partnership Act 1961 (Act 135)",
-            "Sale of Goods Act 1957 (Act 383)",
+            "Sale of Goods Act 1957 (Act 382)",
             "Strata Titles Act 1985 (Act 318)",
             "Courts of Judicature Act 1964 (Act 91)"
         ],
@@ -226,9 +226,9 @@
         {
             "id": "Q027",
             "question": "What are the powers of the High Court under the Courts of Judicature Act?",
-            "expected_section": "Section 24",
+            "expected_section": "Section 35",
             "expected_act": "Courts of Judicature Act 1964",
-            "ground_truth": "The High Court shall have jurisdiction to try all civil proceedings and jurisdiction to try all offences committed, and to punish all offences against any law in force.",
+            "ground_truth": "In addition to the powers conferred on the High Court by this or any other written law, the High Court shall have general supervisory and revisionary jurisdiction over all subordinate courts.",
             "category": "civil_procedure"
         },
         {
@@ -289,10 +289,10 @@
         },
         {
             "id": "Q035",
-            "question": "What is the procedure for judicial review under Courts of Judicature Act?",
+            "question": "Which section of the Courts of Judicature Act grants the High Court the power to issue prerogative writs like habeas corpus and certiorari?",
             "expected_section": "Section 25",
             "expected_act": "Courts of Judicature Act 1964",
-            "ground_truth": "The High Court may review the decisions of inferior courts, tribunals or public authorities through certiorari, prohibition or mandamus.",
+            "ground_truth": "Section 25, read with the Schedule, grants the High Court the power to issue directions, orders or writs, including writs of the nature of habeas corpus, mandamus, prohibition, quo warranto and certiorari.",
             "category": "civil_procedure"
         },
         {
