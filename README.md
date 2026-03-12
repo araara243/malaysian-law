@@ -24,10 +24,10 @@ Based on evaluation against a 36-question golden dataset across 7 Acts:
 
 | Category | Questions | Hit Rate @ 1 | Hit Rate @ 3 | MRR |
 |----------|-----------|--------------|--------------|-----|
-| Commercial | 20 | 95.0% | 100.0% | 0.975 |
-| Property | 8 | 87.5% | 100.0% | 0.938 |
-| Civil Procedure | 4 | 100.0% | 100.0% | 1.000 |
-| **Overall** | **32** | **94.5%** | **100.0%** | **0.969** |
+| Commercial | 25 | 48.0% | 56.0% | 0.533 |
+| Property | 8 | 62.5% | 75.0% | 0.667 |
+| Civil Procedure | 3 | 33.3% | 66.7% | 0.444 |
+| **Overall** | **36** | **47.9%** | **61.1%** | **0.548** |
 
 ### Category-Based Evaluation
 
