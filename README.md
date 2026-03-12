@@ -65,7 +65,7 @@ The system now supports PostgreSQL with pgvector as an alternative to ChromaDB f
    # macOS
    brew install postgresql@16
 
-   # pgvector extension (see docs/POSTGRESQL_SETUP.md)
+   # pgvector extension (see docs/architecture/POSTGRESQL_SETUP.md)
    ```
 
 2. **Set up environment variables** in `.env`:
@@ -118,13 +118,13 @@ The system now supports PostgreSQL with pgvector as an alternative to ChromaDB f
 
 ### Migration Documentation
 
-For complete setup instructions, troubleshooting, and performance optimization, see [docs/POSTGRESQL_SETUP.md](docs/POSTGRESQL_SETUP.md).
+For complete setup instructions, troubleshooting, and performance optimization, see [PostgreSQL Setup Document](docs/architecture/POSTGRESQL_SETUP.md).
 
 ---
 
 ## Architecture
 
-For a detailed visual mapping of the data ingestion, retrieval, and generation layers, please consult the [System Architecture Document](docs/system_architecture.md).
+For a detailed visual mapping of the data ingestion, retrieval, and generation layers, please consult the [System Architecture Document](docs/architecture/SYSTEM_ARCHITECTURE.md).
 
 ### Technology Stack
 
@@ -147,22 +147,23 @@ For a detailed visual mapping of the data ingestion, retrieval, and generation l
 ```text
 MyLaw-RAG/
 ├── data/
-│   ├── raw/                    # Original PDF files from AGC
-│   ├── processed/              # Extracted text and chunks (JSON)
-│   └── vector_db/              # ChromaDB persistence directory
+│   ├── raw/                        # Original PDF files from AGC
+│   ├── processed/                  # Extracted text and chunks (JSON)
+│   └── vector_db/                  # ChromaDB persistence directory
 ├── src/                    
-│   ├── app/                    # Streamlit web application
-│   ├── config.py               # Centralized configuration
-│   ├── db/                     # Database layer (PostgreSQL)
-│   ├── evaluation/             # Retrieval evaluation metrics
-│   ├── generation/             # LangChain RAG pipeline & prompts
-│   ├── ingestion/              # Scraping, extraction, chunking, and embedding
-│   └── retrieval/              # Hybrid search (BM25 + ChromaDB) & reranking
-├── scripts/                    # Utility and migration scripts
-├── tests/                      # Unit tests & golden datasets
-├── docs/                       # Project documentation
-│   ├── system_architecture.md  # Detailed architecture diagrams
-│   └── README.md               # Documentation directory index
+│   ├── app/                        # Streamlit web application
+│   ├── config.py                   # Centralized configuration
+│   ├── db/                         # Database layer (PostgreSQL)
+│   ├── evaluation/                 # Retrieval evaluation metrics
+│   ├── generation/                 # LangChain RAG pipeline & prompts
+│   ├── ingestion/                  # Scraping, extraction, chunking, and embedding
+│   └── retrieval/                  # Hybrid search (BM25 + ChromaDB) & reranking
+├── scripts/                        # Utility and migration scripts
+├── tests/                          # Unit tests & golden datasets
+├── docs/                           # Project documentation
+│   └── architecture/               # Detailed architecture diagrams
+│       ├── SYSTEM_ARCHITECTURE.md  # System architecture diagram
+│       └── POSTGRESQL_SETUP.md     # PostgreSQL setup guide
 ├── requirements.txt
 ├── .env.example
 └── README.md
