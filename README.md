@@ -1,6 +1,6 @@
 # Malaysian Legal RAG System
 
-A Retrieval-Augmented Generation (RAG) pipeline for Malaysian statutory law. This system provides AI-powered legal question answering with citation support, built on ChromaDB for vector storage and **OpenRouter for language generation (free models available)**.
+A Retrieval-Augmented Generation (RAG) pipeline for Malaysian statutory law. This system provides AI-powered legal question answering with citation support, built on ChromaDB for vector storage and **OpenRouter for language generation (free models with dynamic model selection)**.
 
 ## Overview
 
@@ -36,6 +36,12 @@ To evaluate performance per legal category:
 ```bash
 python src/evaluation/evaluate_rag.py --categories --dataset tests/golden_dataset_expanded.json
 ```
+
+### Recent Updates & Progress
+
+- **Structural Semantic Chunking**: Migrated from arbitrary token-based chunking directly to section-aware chunking. This preserves whole statutory provisions grouped by Section numbers.
+- **Cross-Encoder Reranking**: Introduced a local `cross-encoder/ms-marco-MiniLM-L-6-v2` reranking step. When integrated into hybrid search (BM25 + vector similarity using Reciprocal Rank Fusion), it significantly boosts retrieval accuracy for dense legal queries.
+- **Repository Cleanup**: Performed a major cleanup shifting scattered documentation logs (debugging notes, evaluations) entirely into the `docs/` folder, and removing one-off experimental scripts.
 
 ---
 
@@ -118,34 +124,7 @@ For complete setup instructions, troubleshooting, and performance optimization, 
 
 ## Architecture
 
-### System Components
-
-```mermaid
-graph TD
-    User[User] -->|Queries| Streamlit[Streamlit UI]
-    Streamlit -->|Sends Query| RAGChain[Legal RAG Chain]
-    
-    subgraph "Retrieval Layer"
-        RAGChain -->|Query| HybridRetriever[Hybrid Retriever]
-        HybridRetriever -->|Semantic Search| ChromaDB[(ChromaDB)]
-        HybridRetriever -->|Keyword Search| BM25[BM25 Index]
-        ChromaDB -->|Vector Results| HybridRetriever
-        BM25 -->|Keyword Results| HybridRetriever
-    end
-    
-    subgraph "Generation Layer"
-        HybridRetriever -->|Top k Documents| Gemini[Google Gemini LLM]
-        Gemini -->|Answer + Citations| Streamlit
-    end
-    
-    subgraph "Ingestion Pipeline"
-        PDFs[PDF Documents] --> Scraper[AGC Scraper]
-        Scraper --> Extractor[Text Extractor]
-        Extractor --> Chunker[Semantic Chunker]
-        Chunker -->|Chunks + Metadata| ChromaDB
-        Chunker -->|Tokenized Text| BM25
-    end
-```
+For a detailed visual mapping of the data ingestion, retrieval, and generation layers, please consult the [System Architecture Document](docs/system_architecture.md).
 
 ### Technology Stack
 
@@ -153,7 +132,7 @@ graph TD
 |-----------|------------|
 | Language | Python 3.12+ |
 | LLM Framework | LangChain |
-| LLM Provider | OpenRouter (Free Models: Gemma 3, Llama 3, etc.) |
+| LLM Provider | OpenRouter (Free Models with dynamic selection) |
 | Vector Database | ChromaDB (local persistence) **or PostgreSQL + pgvector** |
 | Embedding Model | sentence-transformers/all-MiniLM-L6-v2 (384 dims) |
 | Keyword Search | BM25 (rank_bm25) |
@@ -165,43 +144,25 @@ graph TD
 
 ## Project Structure
 
-```
+```text
 MyLaw-RAG/
 ├── data/
 │   ├── raw/                    # Original PDF files from AGC
 │   ├── processed/              # Extracted text and chunks (JSON)
 │   └── vector_db/              # ChromaDB persistence directory
-├── src/
+├── src/                    
+│   ├── app/                    # Streamlit web application
 │   ├── config.py               # Centralized configuration
 │   ├── db/                     # Database layer (PostgreSQL)
-│   │   └── postgres_connection.py  # Connection pooling
-│   ├── ingestion/
-│   │   ├── agc_scraper.py      # Downloads PDFs from AGC website
-│   │   ├── text_extractor.py   # PDF to text extraction with cleaning
-│   │   ├── chunker.py          # Semantic chunking by legal sections
-│   │   └── vector_ingest.py    # ChromaDB ingestion
-│   ├── retrieval/
-│   │   ├── hybrid_retriever.py # BM25 + semantic search with RRF fusion
-│   │   └── postgresql_retriever.py  # PostgreSQL + pgvector retriever
-│   ├── generation/
-│   │   ├── prompts.py          # System prompts and templates
-│   │   └── rag_chain.py        # LangChain RAG pipeline
-│   ├── evaluation/
-│   │   └── evaluate_rag.py     # Retrieval evaluation metrics
-│   └── app/
-│       └── app.py              # Streamlit web application
-├── scripts/
-│   └── migrate/                # PostgreSQL migration scripts
-│       ├── init_postgres_schema.sql  # Database schema
-│       ├── export_from_chroma.py     # ChromaDB export
-│       ├── import_to_postgres.py     # PostgreSQL import
-│       └── validate_migration.py     # Migration validation
-├── tests/
-│   ├── test_rag.py             # Unit tests
-│   ├── test_postgres_*.py      # PostgreSQL tests
-│   └── golden_dataset.json     # 20 test questions with ground truth
-├── docs/
-│   └── POSTGRESQL_SETUP.md     # PostgreSQL setup guide
+│   ├── evaluation/             # Retrieval evaluation metrics
+│   ├── generation/             # LangChain RAG pipeline & prompts
+│   ├── ingestion/              # Scraping, extraction, chunking, and embedding
+│   └── retrieval/              # Hybrid search (BM25 + ChromaDB) & reranking
+├── scripts/                    # Utility and migration scripts
+├── tests/                      # Unit tests & golden datasets
+├── docs/                       # Project documentation
+│   ├── system_architecture.md  # Detailed architecture diagrams
+│   └── README.md               # Documentation directory index
 ├── requirements.txt
 ├── .env.example
 └── README.md
@@ -267,6 +228,25 @@ streamlit run src/app/app.py
 ```
 
 The application will be available at `http://localhost:8501`.
+
+### AI Model Selection
+
+The Streamlit sidebar includes a **dynamic model selector dropdown** that allows you to choose from:
+
+- **Auto-route to Best Free Model** (default) - OpenRouter automatically selects the best available free model
+- **Specific Free Models** - Choose from 28+ free models including:
+  - Google: Gemma 3 (4B, 12B, 27B)
+  - Meta: Llama 3.2/3.3 (3B, 70B)
+  - Mistral: Mistral Small 3.1 24B
+  - NVIDIA: Nemotron series
+  - Qwen: Qwen3 series
+  - And many more
+
+**Features:**
+- Model list cached for 1 hour to reduce API calls
+- On-the-fly model switching during your session
+- Graceful fallback to default if API key is missing
+- Selection resets to default on page refresh (no persistence)
 
 ### Example Queries
 
@@ -381,6 +361,25 @@ Please ensure you:
 
 ---
 
+## Future Strategy
+
+### Three-Tiered Dataset Evolution
+The current `golden_dataset.json` consists primarily of "Factoid / Direct Retrieval" legal trivia queries (e.g. "What is fraud under the Contracts Act?"). While this is excellent for baseline testing of the ingestion, chunking, and embedding pipelines, it doesn't reflect real-world user interaction which typically involves complex *fact patterns*.
+
+To build a truly robust AI-driven legal chatbot with strong reasoning capabilities, the evaluation dataset will evolve into three tiers:
+
+1. **Tier 1: Factoid / Direct Retrieval**
+   * *Purpose:* Sanity checking basic system plumbing ("Is our database working?").
+   * *Status:* Implemented (`golden_dataset.json`, `golden_dataset_expanded.json`).
+2. **Tier 2: Layperson Situational Queries**
+   * *Purpose:* Testing intent matching. These are short, messy, and emotional queries from regular citizens (e.g., "My landlord locked me out, help!").
+   * *Status:* Planned.
+3. **Tier 3: Law Exam / Bar Exam Fact Patterns**
+   * *Purpose:* Testing deep legal reasoning, issue spotting, and complex RAG synthesis. This simulates the "IRAC" method (Issue, Rule, Application, Conclusion) on complex, multi-issue fact patterns commonly found in university law exams (e.g., CLP past years).
+   * *Status:* Planned. Requires implementation of an LLM-as-a-Judge evaluation pipeline due to the complexity of the ground truth answers.
+
+---
+
 ## Limitations
 
 1. **Scope**: Currently supports 7 Malaysian Acts across commercial, property, and civil procedure law. Expansion to other domains (criminal law, family law) requires additional PDF sources and re-ingestion.
@@ -389,7 +388,7 @@ Please ensure you:
 
 3. **Not Legal Advice**: This system provides information retrieval and AI-generated summaries. It is not a substitute for professional legal counsel.
 
-4. **API Dependency**: LLM generation requires an active API key (OpenRouter or Google). The system falls back to displaying raw retrieved sections when the API is unavailable. OpenRouter offers free tier models with no cost.
+4. **API Dependency**: LLM generation requires an active API key (OpenRouter or Google). The system falls back to displaying raw retrieved sections when the API is unavailable. OpenRouter offers 28+ free tier models with no cost.
 
 5. **Category Coverage**: While commercial and property law are well-represented, other legal domains have limited or no coverage.
 
