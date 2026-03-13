@@ -13,21 +13,23 @@ This project implements a complete RAG pipeline for querying Malaysian legal sta
 | **Commercial** | Contracts Act | Act 136 | 1950 |
 | **Commercial** | Specific Relief Act | Act 137 | 1951 |
 | **Commercial** | Partnership Act | Act 135 | 1961 |
-| **Commercial** | Sale of Goods Act | Act 383 | 1957 |
+| **Commercial** | Sale of Goods Act | Act 382 | 1957 |
+| **Commercial** | Public Authorities (Control of Borrowing Powers) Act | Act 383 | 1961 |
 | **Property** | Housing Development (Control and Licensing) Act | Act 118 | 1966 |
 | **Property** | Strata Titles Act | Act 318 | 1985 |
 | **Civil Procedure** | Courts of Judicature Act | Act 91 | 1964 |
 
 ### Performance Metrics
 
-Based on evaluation against a 36-question golden dataset across 7 Acts:
+Based on evaluation against a 36-question expanded golden dataset across 8 Acts:
 
 | Category | Questions | Hit Rate @ 1 | Hit Rate @ 3 | MRR |
 |----------|-----------|--------------|--------------|-----|
-| Commercial | 25 | 48.0% | 56.0% | 0.533 |
-| Property | 8 | 62.5% | 75.0% | 0.667 |
-| Civil Procedure | 3 | 33.3% | 66.7% | 0.444 |
-| **Overall** | **36** | **47.9%** | **61.1%** | **0.548** |
+| Commercial | 25 | 40.0% | 60.0% | 0.503 |
+| Property | 8 | 12.5% | 37.5% | 0.208 |
+| Civil Procedure | 3 | 33.3% | 33.3% | 0.417 |
+| **Overall (Category Mode)** | **36** | **33.3%** | **52.8%** | **0.431** |
+| **Overall (Standard Mode)** | **20** | **85.0%** | **100.0%** | **0.908** |
 
 ### Category-Based Evaluation
 
