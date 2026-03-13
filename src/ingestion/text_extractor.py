@@ -11,13 +11,19 @@ Key cleaning operations:
 - Preserve section structure for semantic chunking
 """
 
+import sys
 import json
 import logging
 import re
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Dict, Any, cast
 
-from pypdf import PdfReader
+# Add project root to sys.path for direct execution
+root = Path(__file__).resolve().parent.parent.parent
+if str(root) not in sys.path:
+    sys.path.insert(0, str(root))
+
+from pypdf import PdfReader # type: ignore
 
 # Configure logging
 logging.basicConfig(
@@ -41,13 +47,13 @@ def detect_pdf_type(pdf_path: Path) -> str:
         reader = PdfReader(pdf_path)
 
         # Check first few pages for extractable text
-        text_pages = 0
-        check_pages = min(3, len(reader.pages))
+        text_pages: int = 0
+        check_pages: int = min(3, len(reader.pages))
 
         for i in range(check_pages):
             page = reader.pages[i]
             if page.extract_text().strip():
-                text_pages += 1
+                text_pages = text_pages + 1
 
         # If most pages have text, it's text-based
         if text_pages >= check_pages * 0.5:
@@ -70,7 +76,7 @@ def validate_extraction(extracted_text: str) -> dict:
     Returns:
         Dict with 'valid' (bool), 'issues' (list), 'length' (int).
     """
-    result = {
+    result: Dict[str, Any] = {
         "valid": True,
         "issues": [],
         "length": len(extracted_text)
@@ -228,7 +234,7 @@ def extract_act_metadata(text: str, filename: str) -> dict:
     Returns:
         Dictionary containing act metadata.
     """
-    metadata = {
+    metadata: Dict[str, Any] = {
         "filename": filename,
         "act_number": None,
         "act_name": None,
@@ -282,9 +288,9 @@ def process_pdf(pdf_path: Path) -> Optional[dict]:
     document = {
         "metadata": metadata,
         "raw_text": raw_text,
-        "cleaned_text": cleaned_text,
+        "cleaned_text": cleaned_text if cleaned_text else raw_text, # Fallback to raw if cleaning result is empty
         "char_count_raw": len(raw_text),
-        "char_count_cleaned": len(cleaned_text),
+        "char_count_cleaned": len(cleaned_text) if cleaned_text else len(raw_text),
     }
     
     # Save to processed directory

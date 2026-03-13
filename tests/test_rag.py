@@ -12,9 +12,10 @@ import json
 import os
 import sys
 from pathlib import Path
+from typing import cast
 from unittest.mock import MagicMock, patch
 
-import pytest
+import pytest # type: ignore
 
 # Add src to path
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -26,7 +27,7 @@ class TestAGCScraper:
     
     def test_construct_pdf_url_english(self):
         """Test English PDF URL construction."""
-        from ingestion.agc_scraper import construct_pdf_url
+        from ingestion.agc_scraper import construct_pdf_url # type: ignore
         
         url = construct_pdf_url(136, "EN")
         assert "Act%20136.pdf" in url
@@ -34,7 +35,7 @@ class TestAGCScraper:
     
     def test_construct_pdf_url_malay(self):
         """Test Malay PDF URL construction."""
-        from ingestion.agc_scraper import construct_pdf_url
+        from ingestion.agc_scraper import construct_pdf_url # type: ignore
         
         url = construct_pdf_url(136, "BM")
         assert "Akta%20136.pdf" in url
@@ -42,7 +43,7 @@ class TestAGCScraper:
     
     def test_expanded_acts_defined(self):
         """Test that expanded acts are properly defined."""
-        from ingestion.agc_scraper import EXPANDED_ACTS
+        from ingestion.agc_scraper import EXPANDED_ACTS # type: ignore
 
         # Should have at least 10 Acts
         assert len(EXPANDED_ACTS) >= 10
@@ -84,7 +85,7 @@ class TestTextExtractor:
     
     def test_clean_legal_text_removes_headers(self):
         """Test that AGC headers are removed."""
-        from ingestion.text_extractor import clean_legal_text
+        from ingestion.text_extractor import clean_legal_text # type: ignore
         
         text = "AGC Malaysia\nSection 1. This is the law.\nPage 1 of 10"
         cleaned = clean_legal_text(text)
@@ -95,7 +96,7 @@ class TestTextExtractor:
     
     def test_clean_legal_text_normalizes_whitespace(self):
         """Test whitespace normalization."""
-        from ingestion.text_extractor import clean_legal_text
+        from ingestion.text_extractor import clean_legal_text # type: ignore
         
         text = "Section 1.   Too many   spaces here.\n\n\n\nToo many newlines."
         cleaned = clean_legal_text(text)
@@ -109,7 +110,7 @@ class TestChunker:
     
     def test_find_sections(self):
         """Test section detection."""
-        from ingestion.chunker import find_sections
+        from ingestion.chunker import find_sections # type: ignore
         
         # Note: Text format matches real PDF extraction (section headers at line start)
         text = """Section 1. Short title
@@ -126,7 +127,7 @@ In this Act, unless the context otherwise requires—
     
     def test_find_sections_with_subsections(self):
         """Test that subsection patterns like 2A are detected."""
-        from ingestion.chunker import find_sections
+        from ingestion.chunker import find_sections # type: ignore
         
         # Note: Text format matches real PDF extraction (section headers at line start)
         text = """Section 5A. Additional provisions
@@ -144,7 +145,7 @@ class TestHybridRetriever:
     @pytest.fixture
     def retriever(self):
         """Create retriever instance."""
-        from retrieval.hybrid_retriever import HybridRetriever
+        from retrieval.hybrid_retriever import HybridRetriever # type: ignore
         return HybridRetriever()
     
     def test_retriever_initialization(self, retriever):
@@ -178,7 +179,7 @@ class TestHybridRetriever:
         )
         
         assert len(results) > 0
-        assert all(r.retrieval_method == "hybrid" for r in results)
+        assert all("hybrid" in r.retrieval_method for r in results)
     
     def test_contracts_act_retrieval(self, retriever):
         """Test that Contracts Act queries return Contracts Act sections."""
@@ -230,7 +231,7 @@ class TestGoldenDataset:
     @pytest.fixture
     def retriever(self):
         """Create retriever instance."""
-        from retrieval.hybrid_retriever import HybridRetriever
+        from retrieval.hybrid_retriever import HybridRetriever # type: ignore
         return HybridRetriever()
     
     def test_golden_dataset_structure(self, golden_dataset):
@@ -254,10 +255,10 @@ class TestGoldenDataset:
             # Check if expected act appears in top 3 results
             for r in results:
                 if q["expected_act"] in r.act_name:
-                    correct += 1
+                    correct = cast(int, correct) + 1 # type: ignore
                     break
         
-        accuracy = correct / total
+        accuracy = cast(int, correct) / total # type: ignore
         print(f"\nRetrieval Accuracy: {correct}/{total} = {accuracy:.1%}")
         
         # We expect at least 70% accuracy

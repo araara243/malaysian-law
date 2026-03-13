@@ -9,25 +9,29 @@ This module handles:
 ChromaDB is used for MVP as it's local and requires no external dependencies.
 """
 
+import sys
 import json
 import logging
-from typing import Optional, List, Dict, Any, Union
+from pathlib import Path
+from typing import Optional, List, Dict, Any, Union, cast # type: ignore
+
+# Add project root to sys.path for direct execution
+root = Path(__file__).resolve().parent.parent.parent
+if str(root) not in sys.path:
+    sys.path.insert(0, str(root))
+
+try:
+    import chromadb # type: ignore
+    from chromadb.config import Settings # type: ignore
+    from chromadb.utils import embedding_functions # type: ignore
+except ImportError:
+    pass
 
 # Import config - handle both module and direct execution
 try:
-    from src.config import (
-        RAGConfig,
-        get_processed_dir,
-        get_vector_db_dir,
-        setup_logging
-    )
+    from src.config import RAGConfig, get_processed_dir, get_vector_db_dir, setup_logging # type: ignore
 except ImportError:
-    from config import (
-        RAGConfig,
-        get_processed_dir,
-        get_vector_db_dir,
-        setup_logging
-    )
+    from config import RAGConfig, get_processed_dir, get_vector_db_dir, setup_logging # type: ignore
 
 # Configure logging
 logger = setup_logging(__name__)
@@ -54,7 +58,7 @@ def load_all_chunks() -> List[Dict[str, Any]]:
                 chunks = json.load(f)
                 all_chunks.extend(chunks)
         except Exception as e:
-            logger.error(f"Failed to load chunks from {chunk_file.name}: {e}")
+            logger.error(f"Failed to load chunks from {chunk_file.name}: {e}") # type: ignore
             continue
     
     logger.info(f"Loaded {len(all_chunks)} chunks from {len(chunk_files)} files")
@@ -77,8 +81,8 @@ def build_embedding_function(model_name: str) -> Any:
         ChromaDB EmbeddingFunction object.
     """
     try:
-        from chromadb.utils import embedding_functions
-        ef = embedding_functions.SentenceTransformerEmbeddingFunction(
+        from chromadb.utils import embedding_functions # type: ignore
+        ef = embedding_functions.SentenceTransformerEmbeddingFunction( # type: ignore
             model_name=model_name,
             device="cpu",
             normalize_embeddings=True,   # BGE recommends normalization for cosine
@@ -108,8 +112,8 @@ def create_chroma_collection(
         Exception: If database initialization fails.
     """
     try:
-        import chromadb
-        from chromadb.config import Settings
+        import chromadb # type: ignore
+        from chromadb.config import Settings # type: ignore
     except ImportError:
         logger.error("ChromaDB not installed. Please install it.")
         raise
@@ -210,12 +214,12 @@ def ingest_chunks_to_chroma(
             })
         
         # Insert in batches
-        total_inserted = 0
+        total_inserted: int = 0
         for i in range(0, len(ids), batch_size):
             try:
-                batch_ids = ids[i:i + batch_size]
-                batch_docs = documents[i:i + batch_size]
-                batch_meta = metadatas[i:i + batch_size]
+                batch_ids = cast(List[str], ids)[i:i + batch_size] # type: ignore
+                batch_docs = cast(List[str], documents)[i:i + batch_size] # type: ignore
+                batch_meta = cast(List[Dict[str, Any]], metadatas)[i:i + batch_size] # type: ignore
                 
                 collection.upsert(
                     ids=batch_ids,

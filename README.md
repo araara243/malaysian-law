@@ -326,13 +326,42 @@ Test coverage includes:
 
 ### Retrieval Evaluation
 
-Run the evaluation script to compute Hit Rate and MRR metrics:
+Run the evaluation script to compute Hit Rate and MRR metrics. There are three main ways to run this:
 
+#### 1. Standard Evaluation (Default)
+Computes aggregate metrics across the entire system using the base golden dataset (20 questions). Use this to check overall system health.
 ```bash
 python src/evaluation/evaluate_rag.py
 ```
 
-Results are saved to `tests/evaluation_results.json`.
+#### 2. Category-Based Evaluation
+Breaks down performance by legal domain (Contracts, Property, etc.). Crucial for identifying specific acts or areas where retrieval is failing.
+```bash
+python src/evaluation/evaluate_rag.py --categories
+```
+
+#### 3. Custom/Expanded Dataset Evaluation
+Tests the system against a larger or specific set of questions. Highly recommended after ingesting new Acts to verify they are being retrieved correctly.
+```bash
+python src/evaluation/evaluate_rag.py --categories --dataset tests/golden_dataset_expanded.json
+```
+
+Evaluation results are saved to `tests/evaluation_results.json` (or `evaluation_results_by_category.json`).
+
+#### Understanding Evaluation Results
+
+Retrieval performance varies significantly depending on the mode used:
+
+| Mode | Questions | Hit Rate @ 1 | Focus | Match Strictness |
+| :--- | :--- | :--- | :--- | :--- |
+| **Standard** | 20 Base | **~85%** | Overall AI "Smartness" | **Low** (Fuzzy/Text-based) |
+| **Category** | 20 Base | **~35%** | Metadata/Index Quality | **High** (Exact Section No.) |
+| **Expanded** | 35+ Custom | **~28%** | Multi-Act Scaling | **High** (Exact Section No.) |
+
+**Why the difference?**
+- **Standard Mode** uses fuzzy content matching. If the AI finds the correct text but the metadata is slightly messy, it still counts as a success. This measures if the system can find the answer *anywhere*.
+- **Category & Expanded Modes** require an exact match of the statutory section number (e.g., Section 10). The lower scores here indicate where the PDF parsing or indexing of metadata needs more refinement.
+- **The Drop in Expanded Mode** reveals how adding new Acts (Partnership, Sale of Goods) introduces more competition for retrieval, identifying specific areas needing optimization.
 
 ---
 

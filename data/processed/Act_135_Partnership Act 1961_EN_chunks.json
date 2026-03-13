@@ -1,19 +1,893 @@
 [
   {
-    "chunk_id": "act_135_full",
+    "chunk_id": "act_135_preamble",
     "act_name": "Partnership Act 1961",
     "act_number": 135,
     "act_year": 0,
     "category": "commercial",
     "part": null,
-    "section_number": null,
-    "section_title": null,
+    "section_number": "Preamble",
+    "section_title": "Preliminary Provisions",
     "subsection": null,
-    "content": "",
-    "token_count": 0,
+    "content": "LAWS OF MALAYSIA\nREPRINT\nAct 135\nPARTNERSHIP ACT 1961\nPUBLISHED BY\nTHE COMMISSIONER OF LAW REVISION, MALAYSIA\nUNDER THE AUTHORITY OF THE REVISION OF LAWS ACT 1968\nIN COLLABORATION WITH\nPERCETAKAN NASIONAL MALAYSIA BHD\n2006\n2 Laws of Malaysia ACT 135\nFirst enacted ... ... … .. .…… 1961 (Sabah Ord. No. 1\nof 1961)\nRevised ... ... ... … .. .…… 1974 (Act 135 w.e.f.\n1 July 1974)\nPREVIOUS R EPRINTS\nFirst Reprint … … … … … 1997\nSecond Reprint … … … … … 2000\nPARTNERSHIP ACT 1961\nPartnership 3\nLAWS OF MALAYSIA\nAct 135\nPARTNERSHIP ACT 1961\nARRANGEMENT OF SECTIONS\nPART I\nPRELIMINARY\n\nSection\n1. Short title\n\n2. Interpretation\nPART II\nNATURE OF PARTNERSHIP\n\n3. Definition of partnership\n\n4. Certain circumstances not prima facie partnerships\n\n5. Postponement of rights of person lending or selling in consideration of\nshare of profits in case of bankruptcy\n\n6. Meaning of firm and firm name\nPART III\nRELATIONS OF PARTNERS TO PERSONS DEALING\nWITH THEM\n\n7. Power of partner to bind firm\n\n8. Partners bound by acts on behalf of firm\n\n9. Partner using credit of firm for private purposes\n\n10. Effect of notice that firm will not be bound by acts of partner\n\n11. Liability of partners\n\n12. Liability of firm for wrongs\n\n13. Misapplication of money or property received for or in custody of firm\n4 Laws of Malaysia ACT 135\n\nSection\n14. Liability for wrongs joint and several\n\n15. Improper employment of trust property for partnership purposes\n\n16. Persons liable by “holding out”\n\n17. Admissions and representations of partner\n\n18. Notice to acting partner to be notice to firm\n\n19. Liability of incoming and outgoing partners\n\n20. Revocation of continuing guarantee by change in firm\nP\nART IV\nRELATIONS OF PARTNERS TO ONE ANOTHER\n\n21. Variation by consent of terms of partnership\n\n22. Partnership property\n\n23. Property bought with partnership money\n\n24. Conversion into personal estate of land held as partnership property\n\n25. Procedure against partnership property for partner’s separate judgment\ndebt\n\n26. Rules as to interests and duties of partners, subject to special agreement\n\n27. Expulsion of partner\n\n28. Retirement from partnership at will\n\n29. Where partnership for term is continued over, continuance on old terms\npresumed\n\n30. Duty of partners to render accounts, etc.\n\n31. Accountability of partners for private profits\n\n32. Duty of partner not to compete with firm\n\n33. Rights of assignee of share in partnership\nP\nART V\nDISSOLUTION OF PARTNERSHIP AND ITS\nCONSEQUENCES\n\n34. Dissolution by expiration or notice\n\n35. Dissolution by bankruptcy, death or charge\n\n36. Dissolution by illegality of partnership\n\n37. Dissolution by the court\nPartnership 5\n\nSection\n38. Rights of persons dealing with firm against apparent members of firm\n\n39. Right of partner to notify dissolution\n\n40. Continuing authority of partners for purposes of winding up\n\n41. Rights of partners as to application of partnership property\n\n42. Apportionment of premium where partnership prematurely dissolved\n\n43. Rights where partnership dissolved for fraud or misrepresentation\n\n44. Rights of outgoing partner in certain cases to share profits made after\ndissolution\n\n45. Retiring or deceased partner’s share to be a debt\n\n46. Rules for distribution of assets on final settlement of accounts",
+    "token_count": 814,
     "start_position": 0,
     "cross_references": [],
     "keywords": [],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s47",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part III - RELATIONS OF PARTNERS TO PERSONS DEALING",
+    "section_number": "47",
+    "section_title": "Savings",
+    "subsection": null,
+    "content": "Savings Savings Savings. 47. Savings\n6 Laws of Malaysia ACT 135\nPartnership 7\nLAWS OF MALAYSIA\nAct 135\nPARTNERSHIP ACT 1961\nAn Act relating to partnership.\n[Sabah—29 April 1961;\nOther States—1 July 1974, Act A240 ]\nPART I\nPRELIMANARY\nShort title\n\n1. This Act may be cited as the Partnership Act 1961.\nInterpretation",
+    "token_count": 103,
+    "start_position": 3220,
+    "cross_references": [
+      "135",
+      "1961"
+    ],
+    "keywords": [
+      "title"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s2",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part I - PRELIMANARY",
+    "section_number": "2",
+    "section_title": "In this Act—",
+    "subsection": null,
+    "content": "In this Act— In this Act— In this Act—. 2. In this Act—\n“bankruptcy” means—\n(a) being the subject of an order of adjudication under the\nBankruptcy Act 1967 [ Act 360 ];\n(b) entering into an arrangement to pay creditors less than\nthe full amount owed; or\n(c) dying in insolvent circumstances;\n“business” includes every trade, occupation, or profession.\nPART II\nNATURE OF PARTNERSHIP\nDefinition of partnership",
+    "token_count": 92,
+    "start_position": 3510,
+    "cross_references": [
+      "360",
+      "1967"
+    ],
+    "keywords": [],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s3",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "3",
+    "section_title": "(1) Partnership is the relation which subsists between persons",
+    "subsection": null,
+    "content": "(1) Partnership is the relation which subsists between persons (1) Partnership is the relation which subsists between persons (1) Partnership is the relation which subsists between persons. 3. (1) Partnership is the relation which subsists between persons\ncarrying on business in common with a view of profit.\n8 Laws of Malaysia ACT 135\n(2) The relation between members of any company or association\nwhich is—\n(a) registered as a company under the Companies Act 1965\n[Act 125 ] or as a co-operative society under any written\nlaw relating to co-operative societies; or\n(b) formed or incorporated by or in pursuance of—\n(i) any other law having effect in Malaysia or any\npart thereof; or\n(ii) any letters patent, Royal Charter or Act of the\nParliament of the United Kingdom,\nis not a partnership within the meaning of this Act.\nCertain circumstances not prima facie partnerships",
+    "token_count": 159,
+    "start_position": 3878,
+    "cross_references": [
+      "135",
+      "125",
+      "1965"
+    ],
+    "keywords": [],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s4",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "4",
+    "section_title": "In determining whether a partnership does or does not exist,",
+    "subsection": null,
+    "content": "In determining whether a partnership does or does not exist, In determining whether a partnership does or does not exist, In determining whether a partnership does or does not exist,. 4. In determining whether a partnership does or does not exist,\nregard shall be had to the following rules:\n(a) joint tenancy, tenancy in common, joint property, common\nproperty, or part ownership does not of itself create a\npartnership as to anything so held or owned, whether the\ntenants or owners do or do not share any profits made\nby the use thereof;\n(b) the sharing of gross returns does not of itself create a\npartnership, whether the persons sharing such returns\nhave or have not a joint or common right or interest in\nany property from which or from the use of which the\nreturns are derived;\n(c) the receipt by a person of a share of the profits of business\nis prima facie evidence that he is a partner in the business,\nbut the receipt of such a share, or of a payment contingent\non or varying with the profits of a business, does not of\nitself make him a partner in the business; and in particular—\n(i) the receipt by a person of a debt or other liquidated\namount, by instalments or otherwise, out of the\naccruing profits of a business does not of itself\nmake him a partner in the business or liable as\nsuch;\nPartnership 9\n(ii) a contract for the remuneration of a servant or\nagent of a person engaged in a business by a share\nof the profits of the business does not of itself\nmake the servant or agent a partner in the business\nor liable as such;\n(iii) a person being the widow or child of a deceased\npartner, and receiving by way of annuity a portion\nof the profits made in the business in which the\ndeceased person was a partner, is not, by reason\nonly of such receipt, a partner in the business or\nliable as such;\n(iv) the advance of money by way of loan to a person\nengaged or about to engage in any business on a\ncontract with that person that the lender shall receive\na rate of interest varying with the profits, or shall\nreceive a share of the profits, arising from carrying\non the business, does not of itself make the lender\na partner with the person or persons carrying on\nthe business or liable as such:\nProvided that the contract is in writing and signed\nby or on behalf of all the parties thereto; and\n(v) a person receiving, by way of annuity or otherwise,\na portion of the profits of a business in consideration\nof the sale by him of the goodwill of the business\nis not, by reason only of such receipt, a partner\nin the business or liable as such.\nPostponement of rights of person lending or selling in\nconsideration of share of profits in case of bankruptcy",
+    "token_count": 577,
+    "start_position": 4565,
+    "cross_references": [],
+    "keywords": [
+      "contract",
+      "consideration",
+      "property",
+      "ownership",
+      "evidence"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s5",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "5",
+    "section_title": "In the event of the bankruptcy of any person to whom money",
+    "subsection": null,
+    "content": "In the event of the bankruptcy of any person to whom money In the event of the bankruptcy of any person to whom money In the event of the bankruptcy of any person to whom money. 5. In the event of the bankruptcy of any person to whom money\nhas been advanced by way of loan upon such a contract as is\nmentioned in subparagraph 4 (c)(iv), or of any buyer of a goodwill\nin consideration of a share of the profits of the business, the lender\nof the loan shall not be entitled to recover anything in respect of\nhis loan, and the seller of the goodwill shall not be entitled to\nrecover anything in respect of the share of profits contracted for,\nuntil the claims of other creditors of the borrower or buyer for\nvaluable consideration in money or money’s worth have been\nsatisfied.\n10 Laws of Malaysia ACT 135\nMeaning of firm and firm name",
+    "token_count": 146,
+    "start_position": 7050,
+    "cross_references": [
+      "135"
+    ],
+    "keywords": [
+      "contract",
+      "consideration",
+      "title"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s6",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "6",
+    "section_title": "Persons who have entered into partnership with one another",
+    "subsection": null,
+    "content": "Persons who have entered into partnership with one another Persons who have entered into partnership with one another Persons who have entered into partnership with one another. 6. Persons who have entered into partnership with one another\nare, for the purposes of this Act, called collectively a firm, and\nthe name under which their business is carried on is called the\nfirm name.\nP\nART III\nRELATIONS OF PARTNERS TO PERSONS DEALING\nWITH THEM\nPower of partner to bind firm",
+    "token_count": 70,
+    "start_position": 7705,
+    "cross_references": [],
+    "keywords": [],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s7",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "7",
+    "section_title": "Every partner is an agent of the firm and his other partners",
+    "subsection": null,
+    "content": "Every partner is an agent of the firm and his other partners Every partner is an agent of the firm and his other partners Every partner is an agent of the firm and his other partners. 7. Every partner is an agent of the firm and his other partners\nfor the purpose of the business of the partnership; and the acts of\nevery partner who does any act for carrying on in the usual way\nbusiness of the kind carried on by the firm of which he is a member\nbind the firm and his partners, unless the partner so acting has in\nfact no authority to act for the firm in the particular matter, and\nthe person with whom he is dealing either knows that he has no\nauthority or does not know or believe him to be a partner.\nPartners bound by acts on behalf of firm",
+    "token_count": 126,
+    "start_position": 8000,
+    "cross_references": [],
+    "keywords": [],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s8",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "8",
+    "section_title": "An act or instrument relating to the business of the firm and",
+    "subsection": null,
+    "content": "An act or instrument relating to the business of the firm and An act or instrument relating to the business of the firm and An act or instrument relating to the business of the firm and. 8. An act or instrument relating to the business of the firm and\ndone or executed in the firm-name, or in any other manner showing\nan intention to bind the firm, by any person thereto authorized,\nwhether a partner or not, is binding on the firm and all the partners:\nProvided that this section shall not affect any general rule of law\nrelating to the execution of deeds or negotiable instruments.\nPartner using credit of firm for private purposes",
+    "token_count": 94,
+    "start_position": 8563,
+    "cross_references": [],
+    "keywords": [],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s9",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "9",
+    "section_title": "Where one partner pledges the credit of the firm for a purpose",
+    "subsection": null,
+    "content": "Where one partner pledges the credit of the firm for a purpose Where one partner pledges the credit of the firm for a purpose Where one partner pledges the credit of the firm for a purpose. 9. Where one partner pledges the credit of the firm for a purpose\napparently not connected with the firm’s ordinary course of business,\nthe firm is not bound, unless he is in fact specially authorized by\nthe other partners; but this section does not affect any personal\nliability incurred by an individual partner.\nPartnership 11\nEffect of notice that firm will not be bound by acts of partner",
+    "token_count": 83,
+    "start_position": 9010,
+    "cross_references": [],
+    "keywords": [
+      "liability"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s10",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "10",
+    "section_title": "If it has been agreed between the partners that any restriction",
+    "subsection": null,
+    "content": "If it has been agreed between the partners that any restriction If it has been agreed between the partners that any restriction If it has been agreed between the partners that any restriction. 10. If it has been agreed between the partners that any restriction\nshall be placed on the power of any one or more of them to bind\nthe firm, no act done in contravention of the agreement is binding\non the firm with respect to persons having notice of the agreement.\nLiability of partners",
+    "token_count": 63,
+    "start_position": 9404,
+    "cross_references": [],
+    "keywords": [
+      "agreement",
+      "liability"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s11",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "11",
+    "section_title": "Every partner in a firm is liable jointly with the other partners",
+    "subsection": null,
+    "content": "Every partner in a firm is liable jointly with the other partners Every partner in a firm is liable jointly with the other partners Every partner in a firm is liable jointly with the other partners. 11. Every partner in a firm is liable jointly with the other partners\nfor all debts and obligations of the firm incurred while he is a\npartner; and after his death his estate is also severally liable in a\ndue course of administration for such debts and obligations, so far\nas they remain unsatisfied but subject to the prior payment of his\nseparate debts.\nLiability of firm for wrongs",
+    "token_count": 83,
+    "start_position": 9693,
+    "cross_references": [],
+    "keywords": [
+      "obligation",
+      "liability"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s12",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "12",
+    "section_title": "Where, by any wrongful act or omission of any partner acting",
+    "subsection": null,
+    "content": "Where, by any wrongful act or omission of any partner acting Where, by any wrongful act or omission of any partner acting Where, by any wrongful act or omission of any partner acting. 12. Where, by any wrongful act or omission of any partner acting\nin the ordinary course of the business of the firm or with the\nauthority of his co-partners, loss or injury is caused to any person\nnot being a partner in the firm, or any penalty is incurred, the firm\nis liable therefor to the same extent as the partner so acting or\nomitting to act.\nMisapplication of money or property received for or in custody\nof firm",
+    "token_count": 96,
+    "start_position": 10078,
+    "cross_references": [],
+    "keywords": [
+      "penalty",
+      "property"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s13",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "13",
+    "section_title": "In the following cases, namely:",
+    "subsection": null,
+    "content": "In the following cases, namely: In the following cases, namely: In the following cases, namely:. 13. In the following cases, namely:\n(a) where one partner, acting within the scope of his apparent\nauthority, receives the money or property of a third person\nand misapplies it; and\n(b) where a firm in the course of its business receives the\nmoney or property of a third person, and the money or\nproperty so received is misapplied by one or more of the\npartners while it is in the custody of the firm,\nthe firm is liable to make good the loss.\n12 Laws of Malaysia ACT 135\nLiability for wrongs joint and several",
+    "token_count": 121,
+    "start_position": 10499,
+    "cross_references": [
+      "135"
+    ],
+    "keywords": [
+      "liability",
+      "property"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s14",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "14",
+    "section_title": "Every partner is liable jointly with his co-partners and also",
+    "subsection": null,
+    "content": "Every partner is liable jointly with his co-partners and also Every partner is liable jointly with his co-partners and also Every partner is liable jointly with his co-partners and also. 14. Every partner is liable jointly with his co-partners and also\nseverally for everything for which the firm while he is a partner\ntherein becomes liable under section 12 or 13.\nImproper employment of trust property for partnership purposes",
+    "token_count": 51,
+    "start_position": 11010,
+    "cross_references": [
+      "12"
+    ],
+    "keywords": [
+      "property"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s15",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "15",
+    "section_title": "If a partner, being a trustee, improperly employs trust property",
+    "subsection": null,
+    "content": "If a partner, being a trustee, improperly employs trust property If a partner, being a trustee, improperly employs trust property If a partner, being a trustee, improperly employs trust property. 15. If a partner, being a trustee, improperly employs trust property\nin the business or on the account of the partnership, no other\npartner is liable for the trust property to the persons beneficially\ninterested therein:\nProvided as follows:\n(a) this section shall not affect any liability incurred by any\npartner by reason of his having notice of a breach of\ntrust; and\n(b) nothing in this section shall prevent trust money from\nbeing followed and recovered from the firm, if still in its\npossession or under its control.\nPersons liable by “holding out”",
+    "token_count": 118,
+    "start_position": 11252,
+    "cross_references": [],
+    "keywords": [
+      "liability",
+      "breach",
+      "property"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s16",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "16",
+    "section_title": "Every one who by words spoken or written or by conduct",
+    "subsection": null,
+    "content": "Every one who by words spoken or written or by conduct Every one who by words spoken or written or by conduct Every one who by words spoken or written or by conduct. 16. Every one who by words spoken or written or by conduct\nrepresents himself, or who knowingly suffers himself, to be\nrepresented, as a partner in a particular firm is liable as a partner\nto any one who has on the faith of any such representation given\ncredit to the firm, whether the representation has or has not been\nmade or communicated to the person so giving credit by or with\nthe knowledge of the apparent partner making the representation\nor suffering it to be made:\nProvided that where, after a partner’s death, the partnership\nbusiness is continued in the old firm-name, the continued use of\nthat name or of the deceased partner’s name as part thereof shall\nnot of itself make his executor’s or administrator’s estate or effects\nliable for any partnership debts contracted after his death.\nAdmissions and representations of partner\n\n17. An admission or representation made by any partner concerning\nthe partnership affairs, and in the ordinary course of its business,\nis evidence against the firm.\nPartnership 13\nNotice to acting partner to be notice to firm",
+    "token_count": 254,
+    "start_position": 11807,
+    "cross_references": [],
+    "keywords": [
+      "contract"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s18",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "18",
+    "section_title": "Notice to any partner who habitually acts in the partnership",
+    "subsection": null,
+    "content": "Notice to any partner who habitually acts in the partnership Notice to any partner who habitually acts in the partnership Notice to any partner who habitually acts in the partnership. 18. Notice to any partner who habitually acts in the partnership\nbusiness of any matter relating to partnership affairs operates as\nnotice to the firm, except in the case of a fraud on the firm\ncommitted by or with the consent of that partner.\nLiability of incoming and outgoing partners",
+    "token_count": 58,
+    "start_position": 12876,
+    "cross_references": [],
+    "keywords": [
+      "liability"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s19",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "19",
+    "section_title": "(1) A person who is admitted as a partner into an existing",
+    "subsection": null,
+    "content": "(1) A person who is admitted as a partner into an existing (1) A person who is admitted as a partner into an existing (1) A person who is admitted as a partner into an existing. 19. (1) A person who is admitted as a partner into an existing\nfirm does not thereby become liable to the creditors of the firm\nfor anything done before he became a partner.\n(2) A partner who retires from a firm does not thereby cease\nto be liable for partnership debts or obligations incurred before his\nretirement.\n(3) A retiring partner may be discharged from any existing\nliabilities by an agreement to that effect between himself and the\nmembers of the firm as newly constituted and the creditors, and\nthis agreement may be either express or inferred as a fact from the\ncourse of dealing between the creditors and the firm as newly\nconstituted.\nRevocation of continuing guarantee by change in firm",
+    "token_count": 148,
+    "start_position": 13164,
+    "cross_references": [],
+    "keywords": [
+      "agreement",
+      "obligation"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s20",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "20",
+    "section_title": "A continuing guarantee given either to a firm or to a third",
+    "subsection": null,
+    "content": "A continuing guarantee given either to a firm or to a third A continuing guarantee given either to a firm or to a third A continuing guarantee given either to a firm or to a third. 20. A continuing guarantee given either to a firm or to a third\nperson in respect of the transactions of a firm is, in the absence\nof agreement to the contrary, revoked as to future transactions by\nany change in the constitution of the firm to which, or of the firm\nin respect of the transactions of which, the guarantee was given.\nP\nART IV\nRELATIONS OF PARTNERS TO ONE ANOTHER\nVariation by consent of terms of partnership",
+    "token_count": 96,
+    "start_position": 13867,
+    "cross_references": [],
+    "keywords": [
+      "agreement"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s21",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "21",
+    "section_title": "The mutual rights and duties of partners, whether ascertained",
+    "subsection": null,
+    "content": "The mutual rights and duties of partners, whether ascertained The mutual rights and duties of partners, whether ascertained The mutual rights and duties of partners, whether ascertained. 21. The mutual rights and duties of partners, whether ascertained\nby agreement or defined by this Act, may be varied by the consent\nof all the partners, and such consent may be either express or\ninferred from a course of dealing.\n14 Laws of Malaysia ACT 135\nPartnership property",
+    "token_count": 64,
+    "start_position": 14290,
+    "cross_references": [
+      "135"
+    ],
+    "keywords": [
+      "agreement",
+      "fine",
+      "property"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s22",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "22",
+    "section_title": "(1) All property and rights and interests in property originally",
+    "subsection": null,
+    "content": "(1) All property and rights and interests in property originally (1) All property and rights and interests in property originally (1) All property and rights and interests in property originally. 22. (1) All property and rights and interests in property originally\nbrought into the partnership stock or acquired, whether by purchase\nor otherwise, on account of the firm or for the purposes and in the\ncourse of the partnership business, are called in this Act partnership\nproperty and must be held and applied by the partners exclusively\nfor the purposes of the partnership and in accordance with the\npartnership agreement:\nProvided that the legal estate or interest in any land which\nbelongs to the partnership shall devolve according to the nature\nand tenure thereof and the general rules of law applicable thereto\nbut in trust, so far as necessary, for the persons beneficially interested\nin the land under this section.\n(2) Where co-owners of an estate or interest in any land, not\nbeing itself partnership property, are partners as to profits made\nby the use of that land, and purchase other land out of the profits\nto be used in like manner, the land so purchased belongs to them,\nin the absence of any agreement to the contrary, not as partners,\nbut as co-owners for the same respective estates and interests as\nare held by them in the land first mentioned at the date of the\npurchase.\nProperty bought with partnership money\n\n23. Unless the contrary intention appears, property bought with\nmoney belonging to the firm is deemed to have been bought on\naccount of the firm.\nConversion into personal estate of land held as partnership\nproperty",
+    "token_count": 337,
+    "start_position": 14569,
+    "cross_references": [],
+    "keywords": [
+      "agreement",
+      "property",
+      "land"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s24",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "24",
+    "section_title": "Where land or any interest therein has become partnership",
+    "subsection": null,
+    "content": "Where land or any interest therein has become partnership Where land or any interest therein has become partnership Where land or any interest therein has become partnership. 24. Where land or any interest therein has become partnership\nproperty, it shall, unless the contrary intention appears, be treated\nas between the partners (including the representatives of a deceased\npartner), and also as between the heirs of a deceased partner and\nhis executors or administrators, as personal and not real estate.\nPartnership 15\nProcedure against partnership property for partner’s separate\njudgment debt",
+    "token_count": 83,
+    "start_position": 16020,
+    "cross_references": [],
+    "keywords": [
+      "property",
+      "land"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s25",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "25",
+    "section_title": "(1) A writ of execution shall not issue against any partnership",
+    "subsection": null,
+    "content": "(1) A writ of execution shall not issue against any partnership (1) A writ of execution shall not issue against any partnership (1) A writ of execution shall not issue against any partnership. 25. (1) A writ of execution shall not issue against any partnership\nproperty except on a judgment against the firm.\n(2) The court may on the application by summons of any judgment\ncreditor of a partner, make an order charging that partner’s interest\nin the partnership property and profits with payment of the amount\nof the judgment debt and interest thereon, and may, by the same\nor a subsequent order, appoint a receiver of that partner’s share\nof profits (whether already declared or accruing), and of any other\nmoney which may be coming to him in respect of the partnership,\nand direct all accounts and inquiries, and give all other orders and\ndirections, which might have been directed or given if the charge\nhad been made in favour of the judgment creditor by the partner,\nor which the circumstances of the case may require.\n(3) The other partner or partners shall be at liberty at any time\nto redeem the interest charged, or, in case of a sale being directed,\nto purchase the same.\nRules as to interests and duties of partners, subject to special\nagreement",
+    "token_count": 228,
+    "start_position": 16444,
+    "cross_references": [],
+    "keywords": [
+      "agreement",
+      "court",
+      "property"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s26",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "26",
+    "section_title": "The interests of partners in the partnership property, and",
+    "subsection": null,
+    "content": "The interests of partners in the partnership property, and The interests of partners in the partnership property, and The interests of partners in the partnership property, and. 26. The interests of partners in the partnership property, and\ntheir rights and duties in relation to the partnership, shall be\ndetermined, subject to any agreement, express or implied, between\nthe partners, by the following rules:\n(a) all the partners are entitled to share equally in the capital\nand profits of the business, and must contribute equally\ntowards the losses, whether of capital or otherwise,\nsustained by the firm;\n(b) the firm must indemnify every partner in respect of\npayments made and personal liabilities incurred by him—\n(i) in the ordinary and proper conduct of the business\nof the firm; or\n(ii) in or about anything necessarily done for the\npreservation of the business or property of the\nfirm;\n16 Laws of Malaysia ACT 135\n(c) a partner making, for the purposes of the partnership, any\nactual payment or advance beyond the amount of capital\nwhich he has agreed to subscribe, is entitled to interest\nat the rate of eight per cent per annum from the date of\nthe payment or advance;\n(d) a partner is not entitled, before the ascertainment of profits,\nto interest on the capital subscribed by him;\n(e) every partner may take part in the management of the\npartnership business;\n(f) no partner shall be entitled to remuneration for acting in\nthe partnership business;\n(g) no person may be introduced as a partner without the\nconsent of all existing partners;\n(h) any difference arising as to ordinary matters connected\nwith the partnership business may be decided by a majority\nof the partners, but no change may be made in the nature\nof the partnership business without the consent of all\nexisting partners; and\n(i) he partnership books are to be kept at the place of business\nof the partnership (or the principal place, if there are\nmore places than one) and every partner may, when he\nthinks fit, have access to and inspect and copy any of\nthem.\nExpulsion of partner\n\n27. No majority of the partners can expel any partner, unless a\npower to do so has been conferred by express agreement between\nthe partners.\nRetirement from partnership at will",
+    "token_count": 481,
+    "start_position": 17508,
+    "cross_references": [
+      "135"
+    ],
+    "keywords": [
+      "agreement",
+      "property",
+      "title"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s28",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "28",
+    "section_title": "(1) Where no fixed term has been agreed upon for the duration",
+    "subsection": null,
+    "content": "(1) Where no fixed term has been agreed upon for the duration (1) Where no fixed term has been agreed upon for the duration (1) Where no fixed term has been agreed upon for the duration. 28. (1) Where no fixed term has been agreed upon for the duration\nof the partnership, any partner may determine the partnership at\nany time on giving notice of his intention to do so to all the other\npartners.\n(2) Where the partnership has originally been constituted by\nwritten document, a notice in writing, signed by the partner giving\nit, shall be sufficient for this purpose.\nPartnership 17\nWhere partnership for term is continued over, continuance on\nold terms presumed",
+    "token_count": 103,
+    "start_position": 19573,
+    "cross_references": [],
+    "keywords": [],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s29",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "29",
+    "section_title": "(1) Where a partnership entered into for a fixed term is continued",
+    "subsection": null,
+    "content": "(1) Where a partnership entered into for a fixed term is continued (1) Where a partnership entered into for a fixed term is continued (1) Where a partnership entered into for a fixed term is continued. 29. (1) Where a partnership entered into for a fixed term is continued\nafter the term has expired, and without any express new agreement,\nthe rights and duties of the partners remain the same as they were\nat the expiration of the term, so far as consistent with the incidents\nof a partnership at will.\n(2) A continuance of the business by the partners or such of\nthem as habitually acted therein during the term, without any\nsettlement or liquidation of the partnership affairs, is presumed to\nbe a continuance of the partnership.\nDuty of partners to render accounts, etc.\n\n30. Partners are bound to render true accounts and full information\nof all things affecting the partnership to any partner or his legal\nrepresentatives.\nAccountability of partners for private profits",
+    "token_count": 206,
+    "start_position": 20049,
+    "cross_references": [],
+    "keywords": [
+      "agreement"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s31",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "31",
+    "section_title": "(1) Every partner must account to the firm for any benefit",
+    "subsection": null,
+    "content": "(1) Every partner must account to the firm for any benefit (1) Every partner must account to the firm for any benefit (1) Every partner must account to the firm for any benefit. 31. (1) Every partner must account to the firm for any benefit\nderived by him, without the consent of the other partners, from any\ntransaction concerning the partnership or from any use by him of\nthe partnership property, name, or business connection.\n(2) This section applies also to transactions undertaken after a\npartnership has been dissolved by the death of a partner, and\nbefore the affairs thereof have been completely wound up, either\nby any surviving partner or by the representatives of the deceased\npartner.\nDuty of partner not to compete with firm",
+    "token_count": 115,
+    "start_position": 20822,
+    "cross_references": [],
+    "keywords": [
+      "property"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s32",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "32",
+    "section_title": "If a partner, without the consent of the other partners, carries",
+    "subsection": null,
+    "content": "If a partner, without the consent of the other partners, carries If a partner, without the consent of the other partners, carries If a partner, without the consent of the other partners, carries. 32. If a partner, without the consent of the other partners, carries\non any business of the same nature as and competing with that of\nthe firm, he must account for and pay over to the firm all profits\nmade by him in that business.\n18 Laws of Malaysia ACT 135\nRights of assignee of share in partnership",
+    "token_count": 69,
+    "start_position": 21383,
+    "cross_references": [
+      "135"
+    ],
+    "keywords": [],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s33",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "33",
+    "section_title": "(1) An assignment by any partner of his share in the partnership,",
+    "subsection": null,
+    "content": "(1) An assignment by any partner of his share in the partnership, (1) An assignment by any partner of his share in the partnership, (1) An assignment by any partner of his share in the partnership,. 33. (1) An assignment by any partner of his share in the partnership,\neither absolute or by way of mortgage or redeemable charge, does\nnot, as against the other partners, entitle the assignee, during the\ncontinuance of the partnership, to interfere in the management or\nadministration of the partnership business or affairs, or to require\nany accounts of the partnership transactions, or to inspect the\npartnership books, but entitles the assignee only to receive the\nshare of the profits to which the assigning partner would otherwise\nbe entitled, and the assignee must accept the account of profits\nagreed to by the partners.\n(2) In the case of a dissolution of the partnership, whether as\nrespects all the partners or as respects the assigning partner, the\nassignee is entitled to receive the share of the partnership assets\nto which the assigning partner is entitled as between himself and\nthe other partners, and, for the purpose of ascertaining that share,\nto an account as from the date of the dissolution.\nP\nART V\nDISSOLUTION OF PARTNERSHIP AND ITS CONSEQUENCES\nDissolution by expiration or notice",
+    "token_count": 242,
+    "start_position": 21685,
+    "cross_references": [],
+    "keywords": [
+      "title"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s34",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "34",
+    "section_title": "(1) Subject to any agreement between the partners, a partnership",
+    "subsection": null,
+    "content": "(1) Subject to any agreement between the partners, a partnership (1) Subject to any agreement between the partners, a partnership (1) Subject to any agreement between the partners, a partnership. 34. (1) Subject to any agreement between the partners, a partnership\nis dissolved—\n(a) if entered into for a fixed term, by the expiration of that\nterm;\n(b) if entered into for a single adventure or undertaking, by\nthe termination of that adventure or undertaking; or\n(c) if entered into for an undefined time, by any partner\ngiving notice to the other or others of his intention to\ndissolve the partnership.\n(2) In the last-mentioned case the partnership is dissolved as\nfrom the date mentioned in the notice as the date of dissolution,\nor, if no date is so mentioned, as from the date of the communication\nof the notice.\nPartnership 19\nDissolution by bankruptcy, death or charge",
+    "token_count": 159,
+    "start_position": 22791,
+    "cross_references": [],
+    "keywords": [
+      "agreement",
+      "fine"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s35",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "35",
+    "section_title": "(1) Subject to any agreement between the partners, every",
+    "subsection": null,
+    "content": "(1) Subject to any agreement between the partners, every (1) Subject to any agreement between the partners, every (1) Subject to any agreement between the partners, every. 35. (1) Subject to any agreement between the partners, every\npartnership is dissolved as regards all the partners by the death or\nbankruptcy of any partner.\n(2) A partnership may, at the option of the other partners, be\ndissolved if any partner suffers his share of the partnership property\nto be charged under this Act for his separate debt.\nDissolution by illegality of partnership",
+    "token_count": 85,
+    "start_position": 23472,
+    "cross_references": [],
+    "keywords": [
+      "agreement",
+      "property"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s36",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "36",
+    "section_title": "A partnership is in every case dissolved by the happening of",
+    "subsection": null,
+    "content": "A partnership is in every case dissolved by the happening of A partnership is in every case dissolved by the happening of A partnership is in every case dissolved by the happening of. 36. A partnership is in every case dissolved by the happening of\nany event which makes it unlawful for the business of the firm to\nbe carried on or for the members of the firm to carry it on in\npartnership.\nDissolution by the court",
+    "token_count": 53,
+    "start_position": 23856,
+    "cross_references": [],
+    "keywords": [
+      "court"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s37",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "37",
+    "section_title": "On application by a partner, the court may decree a dissolution",
+    "subsection": null,
+    "content": "On application by a partner, the court may decree a dissolution On application by a partner, the court may decree a dissolution On application by a partner, the court may decree a dissolution. 37. On application by a partner, the court may decree a dissolution\nof the partnership in any of the following cases:\n(a) when a partner is found lunatic or is shown, to the\nsatisfaction of the court, to be of permanently unsound\nmind, in either of which cases the application may be\nmade as well on behalf of that partner by his committee,\nor next friend, or person having title to intervene as by\nany other partner;\n(b) when a partner, other than the partner suing, becomes in\nany other way permanently incapable of performing his\npart of the partnership contract;\n(c) when a partner, other than the partner suing, has been\nguilty of such conduct as, in the opinion of the court,\nregard being had to the nature of the business, is calculated\nto affect prejudicially the carrying on of the business;\n(d) when a partner, other than the partner suing, wilfully or\npersistently commits a breach of the partnership agreement\nor otherwise so conducts himself in matters relating to\nthe partnership business that it is not reasonably practicable\nfor the other partner or partners to carry on the business\nin partnership with him;\n20 Laws of Malaysia ACT 135\n(e) when the business of the partnership can only be carried\non at a loss; and\n(f) whenever in any case circumstances have arisen which,\nin the opinion of the court, render it just and equitable\nthat the partnership be dissolved.\nRights of persons dealing with firm against apparent members\nof firm",
+    "token_count": 314,
+    "start_position": 24088,
+    "cross_references": [
+      "135"
+    ],
+    "keywords": [
+      "contract",
+      "agreement",
+      "breach",
+      "court",
+      "title"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s38",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "38",
+    "section_title": "(1) Where a person deals with a firm after a change in its",
+    "subsection": null,
+    "content": "(1) Where a person deals with a firm after a change in its (1) Where a person deals with a firm after a change in its (1) Where a person deals with a firm after a change in its. 38. (1) Where a person deals with a firm after a change in its\nconstitution, he is entitled to treat all apparent members of the old\nfirm as still being members of the firm until he has notice of the\nchange.\n(2) An advertisement in the Federal Gazette as to a firm whose\nprincipal place of business is in Peninsular Mlaysia, in the Sabah\nGazette as to a firm whose principal place of business is in Sabah,\nand in the Sarawak Gazette as to a firm whose principal place of\nbusiness is in Sarawak, shall be notice as to persons who had no\ndealings with the firm before the date of the dissolution or change\nso advertise.\n(3) The estate of a partner who dies or who becomes bankrupt,\nor of a partner who, not having been known to the person dealing\nwith the firm to be a partner, retires from the firm, is not liable\nfor partnership debts contracted after the date of the death, bankruptcy,\nor retirement respectively.\nRight of partner to notify dissolution",
+    "token_count": 220,
+    "start_position": 25540,
+    "cross_references": [],
+    "keywords": [
+      "contract",
+      "title"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s39",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "39",
+    "section_title": "On the dissolution of a partnership or retirement of a partner,",
+    "subsection": null,
+    "content": "On the dissolution of a partnership or retirement of a partner, On the dissolution of a partnership or retirement of a partner, On the dissolution of a partnership or retirement of a partner,. 39. On the dissolution of a partnership or retirement of a partner,\nany partner may publicly notify the same, and may require the\nother partner or partners to concur for that purpose in all necessary\nor proper acts, if any, which cannot be done without his or their\nconcurrence.\nContinuing authority of partners for purposes of winding up",
+    "token_count": 70,
+    "start_position": 26494,
+    "cross_references": [],
+    "keywords": [],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s40",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "40",
+    "section_title": "After the dissolution of a partnership, the authority of each",
+    "subsection": null,
+    "content": "After the dissolution of a partnership, the authority of each After the dissolution of a partnership, the authority of each After the dissolution of a partnership, the authority of each. 40. After the dissolution of a partnership, the authority of each\npartner to bind the firm, and the other rights and obligations of\nthe partners, continue, notwithstanding the dissolution, so far as\nmay be necessary to wind up the affairs of the partnership, and\nto complete transactions begun but unfinished at the time of the\ndissolution, but not otherwise:\nProvided that the firm is in no case bound by the acts of a\npartner who has become bankrupt; but this provision does not\naffect the liability of any person who has, after the bankruptcy,\nrepresented himself or knowingly suffered himself to be represented\nas a partner of the bankrupt.\nPartnership 21\nRights of partners as to application of partnership property",
+    "token_count": 149,
+    "start_position": 26833,
+    "cross_references": [],
+    "keywords": [
+      "obligation",
+      "liability",
+      "property"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s41",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "41",
+    "section_title": "On the dissolution of a partnership, every partner is entitled,",
+    "subsection": null,
+    "content": "On the dissolution of a partnership, every partner is entitled, On the dissolution of a partnership, every partner is entitled, On the dissolution of a partnership, every partner is entitled,. 41. On the dissolution of a partnership, every partner is entitled,\nas against the other partners in the firm and all persons claiming\nthrough them in respect of their interests as partners, to have the\nproperty of the partnership applied in payment of the debts and\nliabilities of the firm, and to have the surplus assets after such\npayment applied in payment of what may be due to the partners\nrespectively, after deducting what may be due from them as partners\nto the firm; and for that purpose any partner or his representatives\nmay, on the termination of the partnership, apply to the court to\nwind up the business and affairs of the firm.\nApportionment of premium where partnership prematurely\ndissolved",
+    "token_count": 147,
+    "start_position": 27554,
+    "cross_references": [],
+    "keywords": [
+      "court",
+      "property",
+      "title"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s42",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "42",
+    "section_title": "Where one partner has paid a premium to another on entering",
+    "subsection": null,
+    "content": "Where one partner has paid a premium to another on entering Where one partner has paid a premium to another on entering Where one partner has paid a premium to another on entering. 42. Where one partner has paid a premium to another on entering\ninto a partnership for a fixed term, and the partnership is dissolved\nbefore the expiration of that term otherwise than by the death of\na partner, the court may order the repayment of the premium, or\nof such part thereof as it thinks just, having regard to the terms\nof the partnership contract and to the length of time during which\nthe partnership has continued; unless—\n(a) the dissolution is, in the judgment of the court, wholly\nor chiefly due to the misconduct of the partner who paid\nthe premium; or\n(b) the partnership has been dissolved by an agreement\ncontaining no provision for a return of any part of the\npremium.\nRights where partnership dissolved for fraud or\nmisrepresentation",
+    "token_count": 160,
+    "start_position": 28264,
+    "cross_references": [],
+    "keywords": [
+      "contract",
+      "agreement",
+      "court"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s43",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "43",
+    "section_title": "Where a partnership contract is rescinded on the ground of",
+    "subsection": null,
+    "content": "Where a partnership contract is rescinded on the ground of Where a partnership contract is rescinded on the ground of Where a partnership contract is rescinded on the ground of. 43. Where a partnership contract is rescinded on the ground of\nthe fraud or misrepresentation of one of the parties thereto, the\nparty entitled to rescind is, without prejudice to any other right,\nentitled—\n(a) to a lien on, or right of retention of, the surplus of the\npartnership assets, after satisfying the partnership liabilities\nfor any sum of money paid by him for the purchase of\na share in the partnership and for any capital contributed\nby him; and is\n22 Laws of Malaysia ACT 135\n(b) to stand in the place of the creditors of the firm for any\npayments made by him in respect of the partnership\nliabilities; and\n(c) to be indemnified by the person guilty of the fraud or\nmaking the representation against all the debts and liabilities\nof the firm.\nRights of outgoing partner in certain cases to share profits\nmade after dissolution",
+    "token_count": 187,
+    "start_position": 29021,
+    "cross_references": [
+      "135"
+    ],
+    "keywords": [
+      "contract",
+      "party",
+      "title"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s44",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "44",
+    "section_title": "Where any member of a firm has died or otherwise ceased to",
+    "subsection": null,
+    "content": "Where any member of a firm has died or otherwise ceased to Where any member of a firm has died or otherwise ceased to Where any member of a firm has died or otherwise ceased to. 44. Where any member of a firm has died or otherwise ceased to\nbe a partner, and the surviving or continuing partners carry on the\nbusiness of the firm with its capital or assets without any final\nsettlement of accounts as between the firm and the outgoing partner\nor his estate, then, in the absence of any agreement to the contrary,\nthe outgoing partner or his estate is entitled, at the option of\nhimself or his representatives, to such share of the profits made\nsince the dissolution as the court may find to be attributable to the\nuse of his share of the partnership assets, or to interest at the rate\nof eight per cent per annum on the amount of his share of the\npartnership assets:\nProvided that where, by the partnership contract, an option is\ngiven to surviving or continuing partners to purchase the interest\nof a deceased or outgoing partner, and that option is duly exercised,\nthe estate of the deceased partner or the outgoing partner or his\nestate as the case may be, is not entitled to any further or other\nshare of profits; but if any partner assuming to act in exercise of\nthe option does not in all material respects comply with the terms\nthereof, he is liable to account under the preceding provisions of\nthis section.\nRetiring or deceased partner’s share to be a debt",
+    "token_count": 272,
+    "start_position": 29862,
+    "cross_references": [],
+    "keywords": [
+      "contract",
+      "agreement",
+      "court",
+      "title"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s45",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "45",
+    "section_title": "Subject to any agreement between the partners, the amount",
+    "subsection": null,
+    "content": "Subject to any agreement between the partners, the amount Subject to any agreement between the partners, the amount Subject to any agreement between the partners, the amount. 45. Subject to any agreement between the partners, the amount\ndue from surviving or continuing partners to an outgoing partner\nor the representatives of a deceased partner in respect of the outgoing\nor deceased partner’s share is a debt accruing at the date of the\ndissolution or death.\nPartnership 23\nRules for distribution of assets on final settlement of accounts",
+    "token_count": 75,
+    "start_position": 31150,
+    "cross_references": [],
+    "keywords": [
+      "agreement"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s46",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "46",
+    "section_title": "In settling accounts between the partners after a dissolution",
+    "subsection": null,
+    "content": "In settling accounts between the partners after a dissolution In settling accounts between the partners after a dissolution In settling accounts between the partners after a dissolution. 46. In settling accounts between the partners after a dissolution\nof partnership, the following rules shall, subject to any agreement,\nbe observed:\n(a) losses, including losses and deficiencies of capital, shall\nbe paid first out of profits, next out of capital and lastly,\nif necessary, by the partners individually in the proportion\nin which they were entitled to share profits; and\n(b) the assets of the firm, including the sums, if any, contributed\nby the partners to make up losses or deficiencies of capital,\nshall be applied in the following manner and order:\n(i) in paying the debts and liabilities of the firm to\npersons who are not partners therein;\n(ii) in paying to each partner rateably what is due\nfrom the firm to him for advances as distinguished\nfrom capital;\n(iii) in paying to each partner rateably what is due\nfrom the firm to him in respect of capital; and\n(iv) the ultimate residue, if any, shall be divided among\nthe partners in the proportion in which profits are\ndivisible.\nSaving",
+    "token_count": 217,
+    "start_position": 31517,
+    "cross_references": [],
+    "keywords": [
+      "agreement",
+      "title"
+    ],
+    "contained_sections": []
+  },
+  {
+    "chunk_id": "act_135_s47_dup1",
+    "act_name": "Partnership Act 1961",
+    "act_number": 135,
+    "act_year": 0,
+    "category": "commercial",
+    "part": "Part II - NATURE OF PARTNERSHIP",
+    "section_number": "47",
+    "section_title": "(1) The rules of equity and of common law applicable in",
+    "subsection": null,
+    "content": "(1) The rules of equity and of common law applicable in (1) The rules of equity and of common law applicable in (1) The rules of equity and of common law applicable in. 47. (1) The rules of equity and of common law applicable in\npartnership shall continue in force, except so far as they are\ninconsistent with the express provisions of this Act.\n(2) Nothing in this Act shall be read to permit any association\nof more than twenty persons to be formed or to carry on any\nbusiness in partnership contrary to paragraph 14(3) (b) of the\nCompanies Act 1965 [ Act 125 ].\n24 Laws of Malaysia ACT 135\nLAWS OF MALAYSIA\nAct 135\nPARTNERSHIP ACT 1961\nLIST OF AMENDMENTS\nAmending law Short title In force from\nSab. G.N.S. Sabah, Sarawak dan Singapore 16-09-1963\n129/1963 (State Constitutions) Order in\nCouncil 1963\nL.N. 458/1964 Modification of Laws 24-12-1964\n(Partnership) (Sabah) Order\n1964\nAct A240 Partnership (Amendment) Act 01-07-1974\n1974\nPartnership 25\nLAWS OF MALAYSIA\nAct 135\nPARTNERSHIP ACT 1961\nLIST OF SECTIONS AMENDED\nSection Amending authority In force from\nLong Title Act A240 01-07-1974\n2 Act A240 01-07-1974\n3 Act A240 01-07-1974\nL.N. 458/1964 24-12-1964\n28 Act A240 01-07-1974\n38 Act A240 01-07-1974\nDICETAK OLEH\nPERCETAKAN NASIONAL MALAYSIA BERHAD,\nKUALA LUMPUR\nBAGI PIHAK DAN DENGAN PERINTAH KERAJAAN MALAYSIA",
+    "token_count": 399,
+    "start_position": 32523,
+    "cross_references": [
+      "125",
+      "135",
+      "1965",
+      "01",
+      "1961"
+    ],
+    "keywords": [
+      "title"
+    ],
     "contained_sections": []
   }
 ]

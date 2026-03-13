@@ -20,13 +20,19 @@ Target acts for expanded RAG system (11 total):
 import os
 import re
 import time
+import sys
 import logging
 from pathlib import Path
-from typing import Optional
+from typing import Optional, List, Dict, cast
 from urllib.parse import quote
 
-import requests
-from bs4 import BeautifulSoup
+# Add project root to sys.path for direct execution
+root = Path(__file__).resolve().parent.parent.parent
+if str(root) not in sys.path:
+    sys.path.insert(0, str(root))
+
+import requests # type: ignore
+from bs4 import BeautifulSoup # type: ignore
 
 # Configure logging
 logging.basicConfig(
@@ -48,13 +54,14 @@ EXPANDED_ACTS = [
     {"act_no": 137, "name": "Specific Relief Act 1951"},
     {"act_no": 118, "name": "Housing Development (Control and Licensing) Act 1966"},
     # === COMMERCIAL ===
-    {"act_no": 383, "name": "Sale of Goods Act 1957"},
+    {"act_no": 382, "name": "Sale of Goods Act 1957"},
+    {"act_no": 383, "name": "Public Authorities (Control of Borrowing Powers) Act 1961"},
     {"act_no": 135, "name": "Partnership Act 1961"},
     # === CRIMINAL ===
     {"act_no": 574, "name": "Penal Code"},
     {"act_no": 593, "name": "Criminal Procedure Code"},
     # === PROPERTY ===
-    {"act_no": 56, "name": "National Land Code 1965"},
+    {"act_no": 56, "name": "National Land Code"},
     {"act_no": 318, "name": "Strata Titles Act 1985"},
     # === CIVIL PROCEDURE ===
     {"act_no": 91, "name": "Courts of Judicature Act 1964"},
@@ -268,21 +275,39 @@ def scrape_pdf_url_from_page(act_no: int, language: str = "BI") -> Optional[str]
         response = requests.get(url, headers=HEADERS, timeout=30)
         response.raise_for_status()
         
-        # Look for the $src variable in the page
-        # Pattern: $src = "https://lom.agc.gov.my/ilims/upload/portal/akta/..."
+        # Look for the $src variable in the page (older structure)
         match = re.search(r'\$src\s*=\s*["\']([^"\']+\.pdf)["\']', response.text)
-        
         if match:
             pdf_url = match.group(1)
-            logger.info(f"Found PDF URL in page: {pdf_url}")
+            logger.info(f"Found PDF URL in script: {pdf_url}")
             return pdf_url
         
-        # Alternative: look for iframe src
+        # New structure: Look for pdf.js viewer src or iframe src
         soup = BeautifulSoup(response.text, "html.parser")
-        iframe = soup.find("iframe")
-        if iframe and iframe.get("src", "").endswith(".pdf"):
-            return iframe["src"]
         
+        # 1. Look for iframes (often used for pdf.js)
+        for iframe in soup.find_all("iframe"):
+            src = iframe.get("src", "")
+            if "file=" in src:
+                # Pattern: .../web/viewer.html?file=URL
+                pdf_url = src.split("file=")[1].split("&")[0]
+                # Unquote URL
+                from urllib.parse import unquote
+                pdf_url = unquote(pdf_url)
+                if pdf_url.startswith("http"):
+                    return pdf_url
+                else:
+                    return f"{BASE_URL}/{pdf_url.lstrip('/')}"
+            
+            if src.endswith(".pdf"):
+                return src if src.startswith("http") else f"{BASE_URL}/{src.lstrip('/')}"
+        
+        # 2. Look for direct links with .pdf
+        for link in soup.find_all("a", href=True):
+            if link["href"].lower().endswith(".pdf"):
+                pdf_url = link["href"]
+                return pdf_url if pdf_url.startswith("http") else f"{BASE_URL}/{pdf_url.lstrip('/')}"
+
         logger.warning(f"Could not find PDF URL in page for Act {act_no}")
         return None
     
@@ -332,14 +357,14 @@ def download_act(act_no: int, act_name: str, language: str = "EN") -> bool:
     return False
 
 
-def download_expanded_acts() -> dict:
+def download_expanded_acts() -> Dict[str, bool]:
     """
     Download all expanded Acts defined in the module.
 
     Returns:
         A dictionary with act numbers as keys and download status as values.
     """
-    results = {}
+    results: Dict[str, bool] = {}
 
     # Check current download status
     logger.info("Checking download status...")
@@ -407,8 +432,8 @@ def download_expanded_acts() -> dict:
     logger.info("Download Summary:")
     logger.info("-" * 60)
 
-    success_count = 0
-    failed_count = 0
+    success_count: int = 0
+    failed_count: int = 0
 
     for i, act in enumerate(EXPANDED_ACTS):
         act_no = act["act_no"]
@@ -417,12 +442,12 @@ def download_expanded_acts() -> dict:
 
         if success:
             status_text = "✓ SUCCESS"
-            success_count += 1
+            success_count = cast(int, success_count) + 1 # type: ignore
         else:
             status_text = "✗ FAILED"
-            failed_count += 1
+            failed_count = cast(int, failed_count) + 1 # type: ignore
 
-        logger.info(f"  [{i+1:2d}] Act {act_no:3d} - {act_name}: {status_text}")
+        logger.info(f"  [{cast(int, i)+1:2d}] Act {act_no:3d} - {act_name}: {status_text}") # type: ignore
 
         # Show file size if exists
         safe_name = sanitize_filename(act_name)

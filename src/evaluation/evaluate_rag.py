@@ -16,13 +16,13 @@ import re
 import sys
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
+from typing import Optional, List, Dict, Any, cast # type: ignore
 
 # Add src to path
 PROJECT_ROOT = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-from retrieval.hybrid_retriever import HybridRetriever
+from retrieval.hybrid_retriever import HybridRetriever # type: ignore
 
 # Configure logging
 logging.basicConfig(
@@ -99,16 +99,17 @@ def evaluate_retrieval(
                 # Check if expected section number appears in chunk content (with or without suffix)
                 # Also check if expected section is the base/prefix of metadata section
                 content_search = (
-                    f"section {expected_section_normalized}" in r.document.lower()
-                    or f"section.{expected_section_normalized}" in r.document.lower()
-                    or f"s.{expected_section_normalized}" in r.document.lower()
+                    f"section {expected_section_normalized}" in r.content.lower()
+                    or f"section.{expected_section_normalized}" in r.content.lower()
+                    or f"s.{expected_section_normalized}" in r.content.lower()
                 )
                 # Also check prefix match for sections with suffixes
                 prefix_search = metadata_section_normalized.startswith(expected_section_normalized)
                 # Check contained_sections field if available
+                contained_sections_match = False
                 if hasattr(r, 'contained_sections') and r.contained_sections:
-                    contained_sections_match = expected_section_normalized in [s.lower() for s in r.contained_sections]
-                    if any(contained_sections_match):
+                    contained_sections_match: bool = expected_section_normalized in [s.lower() for s in r.contained_sections]
+                    if contained_sections_match:
                         section_match = True
                 section_match = content_search or prefix_search or contained_sections_match
             if section_match or rank is None:
@@ -255,7 +256,7 @@ def evaluate_by_category(
     questions = data.get("questions", [])
 
     # Group by category
-    by_category = {}
+    by_category: Dict[str, List[Any]] = {} # type: ignore
     for q in questions:
         category = q.get("category", "other")
         if category not in by_category:
